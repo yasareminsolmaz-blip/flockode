@@ -26,7 +26,7 @@ import {
 } from '../../game/engine';
 import { useI18n } from '../../i18n';
 import { useSounds } from '../../logic/sounds';
-import { useProgress } from '../../store/Progress';
+import { isPlayableWorld, useProgress } from '../../store/Progress';
 import { colors } from '../../theme';
 
 const STEP_MS = 440;
@@ -40,6 +40,8 @@ interface Sim extends Sheep {
   angle: number;
   done: boolean;
   lost: boolean;
+  /** Walked onto a wolf: lost for good and taken off the board */
+  eaten: boolean;
   bump: boolean;
   seen: Set<number>;
 }
@@ -47,8 +49,9 @@ interface Sim extends Sheep {
 export default function LevelScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const index = Number(id);
-  const { unlocked } = useProgress();
+  const { unlocked, owned } = useProgress();
   if (!LEVELS[index] || index >= unlocked) return <Redirect href="/" />;
+  if (!isPlayableWorld(WORLDS[LEVELS[index].w].free, owned)) return <Redirect href="/shop" />;
   // A fresh component per level keeps all play state local and resets it on "next level".
   return <Game key={index} index={index} />;
 }
@@ -57,7 +60,7 @@ export default function LevelScreen() {
 function toView(sims: Sim[], t: number): SheepView[] {
   const groups = new Map<string, number[]>();
   sims.forEach((s, i) => {
-    if (s.done) return;
+    if (s.done || s.eaten) return;
     const k = `${s.x},${s.y}`;
     groups.set(k, [...(groups.get(k) ?? []), i]);
   });
@@ -70,19 +73,19 @@ function toView(sims: Sim[], t: number): SheepView[] {
       ox = Math.cos(a) * 0.16;
       oy = Math.sin(a) * 0.16;
     }
-    return { id: s.id, x: s.x, y: s.y, angle: s.angle, done: s.done, lost: s.lost, bump: s.bump, ox, oy, t };
+    return { id: s.id, x: s.x, y: s.y, angle: s.angle, done: s.done, eaten: s.eaten, lost: s.lost, bump: s.bump, ox, oy, t };
   });
 }
 
 const startSims = (flock: Sheep[]): Sim[] =>
-  flock.map((s, id) => ({ ...s, id, angle: s.d * 90, done: false, lost: false, bump: false, seen: new Set([stateKey(s)]) }));
+  flock.map((s, id) => ({ ...s, id, angle: s.d * 90, done: false, lost: false, eaten: false, bump: false, seen: new Set([stateKey(s)]) }));
 
 function Game({ index }: { index: number }) {
   const level = LEVELS[index];
   const world = WORLDS[level.w];
   const F = useMemo(() => field(level), [level]);
   const fresh = useMemo(() => newTools(index), [index]);
-  const { recordWin } = useProgress();
+  const { recordWin, owned } = useProgress();
   const sfx = useSounds();
   const { t, levelName, levelTip, worldName } = useI18n();
   const { width, height } = useWindowDimensions();
@@ -170,7 +173,7 @@ function Game({ index }: { index: number }) {
       let bumped = false;
       for (const s of sims) {
         s.bump = false;
-        if (s.done) continue;
+        if (s.done || s.eaten) continue;
         const line = choose(F, program, s);
         used.add(line);
         const a = actOf(program, line);
@@ -179,7 +182,11 @@ function Game({ index }: { index: number }) {
         else if (a === 'back') s.angle += 180;
         const mv = act(F, s, a);
         if (mv === 'barn') s.done = true;
-        else {
+        else if (mv === 'wolf') {
+          s.eaten = true;
+          s.lost = true;
+          bumped = true;
+        } else {
           if (mv === 'bump') {
             s.bump = true;
             bumped = true;
@@ -216,7 +223,13 @@ function Game({ index }: { index: number }) {
         setFails((f) => f + 1);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error).catch(() => {});
         sfx.play('fail');
-        setMsg({ kind: 'bad', text: t('lostSheep', { n: sims.filter((s) => !s.done).length }), sub: t('lostHelp') });
+        const eaten = sims.filter((s) => s.eaten).length;
+        const looping = sims.filter((s) => !s.done && !s.eaten).length;
+        setMsg({
+          kind: 'bad',
+          text: [eaten ? t('lostToWolf', { n: eaten }) : '', looping ? t('lostSheep', { n: looping }) : ''].filter(Boolean).join(' '),
+          sub: t('lostHelp'),
+        });
         return;
       }
     }
@@ -252,9 +265,10 @@ function Game({ index }: { index: number }) {
 
   const isLast = index === LEVELS.length - 1;
   const worldEnd = index === world.b - 1;
+  const nextLocked = !isLast && !isPlayableWorld(WORLDS[LEVELS[index + 1].w].free, owned);
   const goNext = () => {
     setWin(null);
-    router.replace(`/level/${index + 1}`);
+    router.replace(nextLocked ? '/shop' : `/level/${index + 1}`);
   };
 
   const mission = (
@@ -388,7 +402,14 @@ function Game({ index }: { index: number }) {
                   resetBoard();
                 }}
               />
-              {!isLast && <Button label={worldEnd ? t('worldN', { n: world.idx + 2 }) : t('nextLevel')} kind="go" onPress={goNext} style={{ flexGrow: 1 }} />}
+              {!isLast && (
+                <Button
+                  label={nextLocked ? t('seeFullVersion') : worldEnd ? t('worldN', { n: world.idx + 2 }) : t('nextLevel')}
+                  kind="go"
+                  onPress={goNext}
+                  style={{ flexGrow: 1 }}
+                />
+              )}
             </View>
           </>
         )}

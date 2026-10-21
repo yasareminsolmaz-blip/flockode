@@ -9,6 +9,58 @@ type Entry = Record<Lang, string>;
 export const WORLD_NAMES: Entry[] = [
   { tr: 'Çayır', en: 'Meadow', de: 'Wiese', es: 'Pradera', nl: 'Weide', fr: 'Prairie' },
   { tr: 'Labirent', en: 'Maze', de: 'Labyrinth', es: 'Laberinto', nl: 'Doolhof', fr: 'Labyrinthe' },
+  { tr: 'Kırmızı Çiçek', en: 'Red Flower', de: 'Rote Blume', es: 'Flor roja', nl: 'Rode bloem', fr: 'Fleur rouge' },
+  { tr: 'Kurt İzleri', en: 'Wolf Tracks', de: 'Wolfsspuren', es: 'Huellas de lobo', nl: 'Wolvensporen', fr: 'Traces de loup' },
+  { tr: 'Dere', en: 'The Stream', de: 'Der Bach', es: 'El arroyo', nl: 'De beek', fr: 'Le ruisseau' },
+  { tr: 'Çiçekli Labirent', en: 'Flower Maze', de: 'Blumenlabyrinth', es: 'Laberinto de flores', nl: 'Bloemendoolhof', fr: 'Labyrinthe fleuri' },
+  { tr: 'Kurt Labirenti', en: 'Wolf Maze', de: 'Wolfslabyrinth', es: 'Laberinto del lobo', nl: 'Wolvendoolhof', fr: 'Labyrinthe du loup' },
+  { tr: 'Akıntılı Labirent', en: 'River Maze', de: 'Flusslabyrinth', es: 'Laberinto del río', nl: 'Rivierdoolhof', fr: 'Labyrinthe de la rivière' },
+  { tr: 'Gece Çayırı', en: 'Night Meadow', de: 'Nachtwiese', es: 'Pradera nocturna', nl: 'Nachtweide', fr: 'Prairie de nuit' },
+  { tr: 'Çiçek Deresi', en: 'Flower Creek', de: 'Blumenbach', es: 'Arroyo de flores', nl: 'Bloemenbeek', fr: 'Ruisseau fleuri' },
+  { tr: 'Uzun Koridorlar', en: 'Long Corridors', de: 'Lange Gänge', es: 'Pasillos largos', nl: 'Lange gangen', fr: 'Longs couloirs' },
+  { tr: 'Kurt ve Dere', en: 'Wolves and Water', de: 'Wölfe und Wasser', es: 'Lobos y agua', nl: 'Wolven en water', fr: 'Loups et eau' },
+  { tr: 'Üç Çiçek', en: 'Three Flowers', de: 'Drei Blumen', es: 'Tres flores', nl: 'Drie bloemen', fr: 'Trois fleurs' },
+  { tr: 'Sisli Tarla', en: 'Foggy Field', de: 'Nebelfeld', es: 'Campo con niebla', nl: 'Mistig veld', fr: 'Champ brumeux' },
+  { tr: 'Kurt Sürüsü', en: 'Wolf Pack', de: 'Wolfsrudel', es: 'Manada de lobos', nl: 'Wolvenroedel', fr: 'Meute de loups' },
+  { tr: 'Taşkın', en: 'Flood', de: 'Hochwasser', es: 'Inundación', nl: 'Overstroming', fr: 'Inondation' },
+  { tr: 'Büyük Çiftlik', en: 'Big Farm', de: 'Großer Hof', es: 'Gran granja', nl: 'Grote boerderij', fr: 'Grande ferme' },
+  { tr: 'Gece Labirenti', en: 'Night Maze', de: 'Nachtlabyrinth', es: 'Laberinto nocturno', nl: 'Nachtdoolhof', fr: 'Labyrinthe de nuit' },
+  { tr: 'Usta Çoban', en: 'Master Shepherd', de: 'Meisterhirte', es: 'Pastor experto', nl: 'Meesterherder', fr: 'Berger expert' },
+  { tr: 'Efsane Sürü', en: 'Legendary Flock', de: 'Legendäre Herde', es: 'Rebaño legendario', nl: 'Legendarische kudde', fr: 'Troupeau légendaire' },
+];
+
+/** One line about each world, on the home and world screens. */
+export const WORLD_INTROS: Entry[] = [
+  { tr: 'Bütün kuzular aynı kodu çalıştırır. Kuralları yaz, sürüyü ahıra getir.', en: 'Every sheep runs the same code. Write the rules and bring the flock home to the barn.', de: 'Alle Schafe führen denselben Code aus. Schreib die Regeln und bring die Herde in den Stall.', es: 'Todas las ovejas ejecutan el mismo código. Escribe las reglas y lleva el rebaño al establo.', nl: 'Alle schapen voeren dezelfde code uit. Schrijf de regels en breng de kudde naar de stal.', fr: 'Tous les moutons exécutent le même code. Écris les règles et ramène le troupeau à la bergerie.' },
+  { tr: 'Çiçekler yol gösterir, "sap" hareketleri labirentte kestirme açar.', en: 'Flowers show the way, and side steps open shortcuts through the maze.', de: 'Blumen zeigen den Weg, und Seitenschritte öffnen Abkürzungen durch das Labyrinth.', es: 'Las flores marcan el camino y los pasos laterales abren atajos en el laberinto.', nl: 'Bloemen wijzen de weg en zijstappen openen kortere routes door het doolhof.', fr: 'Les fleurs montrent le chemin et les pas de côté ouvrent des raccourcis dans le labyrinthe.' },
+  { tr: 'Yeni tabela: kırmızı çiçek. Üç renk, üç farklı kural.', en: 'A new sign: the red flower. Three colours, three different rules.', de: 'Ein neues Zeichen: die rote Blume. Drei Farben, drei verschiedene Regeln.', es: 'Una señal nueva: la flor roja. Tres colores, tres reglas distintas.', nl: 'Een nieuw teken: de rode bloem. Drie kleuren, drie verschillende regels.', fr: 'Un nouveau signe : la fleur rouge. Trois couleurs, trois règles différentes.' },
+  { tr: 'Kurtlar çayırda bekliyor. Kurdun karesine adım atan kuzu kaybolur.', en: 'Wolves wait in the meadow. A sheep that steps onto a wolf’s square is lost.', de: 'Wölfe warten auf der Wiese. Ein Schaf, das auf das Feld eines Wolfs tritt, ist verloren.', es: 'Los lobos esperan en la pradera. Una oveja que pisa la casilla de un lobo se pierde.', nl: 'Wolven wachten in de weide. Een schaap dat op het vakje van een wolf stapt, is verloren.', fr: 'Des loups attendent dans la prairie. Un mouton qui marche sur la case d’un loup est perdu.' },
+  { tr: 'Dereye basan kuzuyu su bir kare sürükler. Akıntı yardım da eder, yolundan da çıkarır.', en: 'A sheep that steps into the stream is carried one square. The current can help, or push you off course.', de: 'Wer in den Bach tritt, wird ein Feld mitgetragen. Die Strömung hilft oder bringt dich vom Weg ab.', es: 'Una oveja que pisa el arroyo es arrastrada una casilla. La corriente puede ayudar o desviarte.', nl: 'Een schaap dat in de beek stapt, wordt één vakje meegevoerd. De stroming helpt, of brengt je van je pad.', fr: 'Un mouton qui entre dans le ruisseau est emporté d’une case. Le courant peut aider ou te dévier.' },
+  { tr: 'Üç renk çiçek ve sap hareketleri, dolambaçlı labirentlerde.', en: 'Three flower colours and side steps, in twisting mazes.', de: 'Drei Blumenfarben und Seitenschritte in verwinkelten Labyrinthen.', es: 'Tres colores de flor y pasos laterales, en laberintos retorcidos.', nl: 'Drie bloemkleuren en zijstappen, in kronkelige doolhoven.', fr: 'Trois couleurs de fleurs et des pas de côté, dans des labyrinthes tortueux.' },
+  { tr: 'Labirent koridorlarında kurtlar var. Hangi kural önce okunmalı?', en: 'Wolves in the maze corridors. Which rule should be read first?', de: 'Wölfe in den Labyrinthgängen. Welche Regel muss zuerst gelesen werden?', es: 'Lobos en los pasillos del laberinto. ¿Qué regla debe leerse primero?', nl: 'Wolven in de gangen van het doolhof. Welke regel moet eerst gelezen worden?', fr: 'Des loups dans les couloirs. Quelle règle faut-il lire en premier ?' },
+  { tr: 'Labirentten dereler akıyor. Akıntıyı hesaba kat.', en: 'Streams run through the maze. Take the current into account.', de: 'Bäche fließen durch das Labyrinth. Rechne mit der Strömung.', es: 'Los arroyos cruzan el laberinto. Ten en cuenta la corriente.', nl: 'Er lopen beken door het doolhof. Houd rekening met de stroming.', fr: 'Des ruisseaux traversent le labyrinthe. Tiens compte du courant.' },
+  { tr: 'Gece çayırında kurtlar ve çiçekler bir arada.', en: 'Wolves and flowers together in the night meadow.', de: 'Wölfe und Blumen zusammen auf der Nachtwiese.', es: 'Lobos y flores juntos en la pradera nocturna.', nl: 'Wolven en bloemen samen in de nachtweide.', fr: 'Loups et fleurs ensemble dans la prairie de nuit.' },
+  { tr: 'Çiçekler ve dereler: tabelaları ve akıntıyı birlikte kullan.', en: 'Flowers and streams: use the signs and the current together.', de: 'Blumen und Bäche: Nutze Zeichen und Strömung zusammen.', es: 'Flores y arroyos: usa las señales y la corriente juntas.', nl: 'Bloemen en beken: gebruik de tekens en de stroming samen.', fr: 'Fleurs et ruisseaux : utilise les signes et le courant ensemble.' },
+  { tr: 'Büyük labirentler, döngülü koridorlar. Sadece çitlere bakarak çık.', en: 'Big mazes with looping corridors. Find the way using only the fences.', de: 'Große Labyrinthe mit Rundgängen. Finde hinaus, nur mit Blick auf die Zäune.', es: 'Grandes laberintos con pasillos en bucle. Sal usando solo las vallas.', nl: 'Grote doolhoven met rondlopende gangen. Vind de weg alleen met de hekken.', fr: 'De grands labyrinthes aux couloirs en boucle. Sors en utilisant seulement les clôtures.' },
+  { tr: 'Kurtlar ve dereler aynı tarlada. Akıntı seni kurda götürmesin.', en: 'Wolves and streams in the same field. Don’t let the current carry you to a wolf.', de: 'Wölfe und Bäche auf demselben Feld. Lass dich nicht zum Wolf treiben.', es: 'Lobos y arroyos en el mismo campo. Que la corriente no te lleve a un lobo.', nl: 'Wolven en beken in hetzelfde veld. Laat de stroming je niet naar een wolf brengen.', fr: 'Loups et ruisseaux dans le même champ. Ne te laisse pas porter vers un loup.' },
+  { tr: 'Açık tarlalarda üç renk çiçek. Dört satırlık kodlar zamanı.', en: 'Three flower colours in open fields. Time for four-line codes.', de: 'Drei Blumenfarben auf offenen Feldern. Zeit für Codes mit vier Zeilen.', es: 'Tres colores de flor en campos abiertos. Hora de códigos de cuatro líneas.', nl: 'Drie bloemkleuren in open velden. Tijd voor codes van vier regels.', fr: 'Trois couleurs de fleurs dans des champs ouverts. Place aux codes de quatre lignes.' },
+  { tr: 'Taşlarla dolu geniş tarlalar. Kenarı takip etmek her zaman yetmez.', en: 'Wide fields full of stones. Following the edge is not always enough.', de: 'Weite Felder voller Steine. Am Rand entlang reicht nicht immer.', es: 'Campos amplios llenos de piedras. Seguir el borde no siempre basta.', nl: 'Brede velden vol stenen. De rand volgen is niet altijd genoeg.', fr: 'De vastes champs pleins de pierres. Suivre le bord ne suffit pas toujours.' },
+  { tr: 'Her yerde kurt var. Güvenli yolu bul.', en: 'Wolves everywhere. Find the safe way.', de: 'Überall Wölfe. Finde den sicheren Weg.', es: 'Lobos por todas partes. Encuentra el camino seguro.', nl: 'Overal wolven. Vind de veilige weg.', fr: 'Des loups partout. Trouve le chemin sûr.' },
+  { tr: 'Tarla dere dolu. Akıntılar kuzuları her yöne savuruyor.', en: 'The field is full of streams. The currents push sheep every which way.', de: 'Das Feld ist voller Bäche. Die Strömungen treiben die Schafe in alle Richtungen.', es: 'El campo está lleno de arroyos. Las corrientes empujan a las ovejas a todas partes.', nl: 'Het veld zit vol beken. De stroming duwt de schapen alle kanten op.', fr: 'Le champ est plein de ruisseaux. Les courants poussent les moutons dans tous les sens.' },
+  { tr: 'Çiçek, kurt ve dere aynı çiftlikte. Hepsini bildin, şimdi birleştir.', en: 'Flowers, wolves and streams on one farm. You know them all, now combine them.', de: 'Blumen, Wölfe und Bäche auf einem Hof. Du kennst alles, jetzt kombiniere es.', es: 'Flores, lobos y arroyos en una granja. Ya los conoces, ahora combínalos.', nl: 'Bloemen, wolven en beken op één boerderij. Je kent ze allemaal, combineer ze nu.', fr: 'Fleurs, loups et ruisseaux dans une ferme. Tu les connais tous, combine-les.' },
+  { tr: 'Büyük labirentlerde hepsi birden.', en: 'All of them at once, in big mazes.', de: 'Alles auf einmal, in großen Labyrinthen.', es: 'Todo a la vez, en grandes laberintos.', nl: 'Alles tegelijk, in grote doolhoven.', fr: 'Tout à la fois, dans de grands labyrinthes.' },
+  { tr: 'Her seviye dört satır ister. Gerçek bir usta çoban ol.', en: 'Every level needs four lines. Become a true master shepherd.', de: 'Jedes Level braucht vier Zeilen. Werde ein echter Meisterhirte.', es: 'Cada nivel necesita cuatro líneas. Conviértete en un verdadero pastor experto.', nl: 'Elk level heeft vier regels nodig. Word een echte meesterherder.', fr: 'Chaque niveau demande quatre lignes. Deviens un vrai berger expert.' },
+  { tr: 'Son dünya. En büyük tarlalar, en zor sürüler.', en: 'The last world. The biggest fields, the hardest flocks.', de: 'Die letzte Welt. Die größten Felder, die schwierigsten Herden.', es: 'El último mundo. Los campos más grandes, los rebaños más difíciles.', nl: 'De laatste wereld. De grootste velden, de moeilijkste kuddes.', fr: 'Le dernier monde. Les plus grands champs, les troupeaux les plus difficiles.' },
+];
+
+/** Tips for levels of worlds 3–20 after the first one of each world. */
+export const GENERIC_TIPS: Entry[] = [
+  { tr: 'Önce Karıştır\'la farklı başlangıçlar dene, sonra kodunu düzelt.', en: 'Try different starts with Shuffle first, then fix your code.', de: 'Probier erst mit Mischen andere Starts aus, dann verbessere deinen Code.', es: 'Prueba primero otros comienzos con Mezclar y luego arregla tu código.', nl: 'Probeer eerst andere starts met Schudden en verbeter dan je code.', fr: 'Essaie d’abord d’autres départs avec Mélanger, puis corrige ton code.' },
+  { tr: 'Kırmızı karelere bak: kuzular orada neden takılıyor?', en: 'Look at the red squares: why do sheep get stuck there?', de: 'Sieh dir die roten Felder an: Warum bleiben die Schafe dort hängen?', es: 'Mira las casillas rojas: ¿por qué se atascan ahí las ovejas?', nl: 'Kijk naar de rode vakjes: waarom lopen de schapen daar vast?', fr: 'Regarde les cases rouges : pourquoi les moutons y restent-ils bloqués ?' },
+  { tr: 'Kural sırasını değiştirmek bazen yeni kural eklemekten iyidir.', en: 'Changing the order of the rules is sometimes better than adding one.', de: 'Die Reihenfolge zu ändern ist manchmal besser, als eine Regel hinzuzufügen.', es: 'A veces cambiar el orden de las reglas es mejor que añadir una.', nl: 'De volgorde veranderen is soms beter dan een regel toevoegen.', fr: 'Changer l’ordre des règles vaut parfois mieux qu’en ajouter une.' },
+  { tr: 'Kendini bir kuzu gibi düşün: önünde, sağında, solunda ne var?', en: 'Think like a sheep: what is ahead, on your right, on your left?', de: 'Denk wie ein Schaf: Was ist vorne, rechts, links?', es: 'Piensa como una oveja: ¿qué hay delante, a la derecha, a la izquierda?', nl: 'Denk als een schaap: wat is er voor je, rechts, links?', fr: 'Pense comme un mouton : qu’y a-t-il devant, à droite, à gauche ?' },
+  { tr: 'YOKSA satırı en çok kullanılan hareket olmalı.', en: 'The ELSE line should be the move used most often.', de: 'Die SONST-Zeile sollte der häufigste Zug sein.', es: 'La línea SI NO debería ser el movimiento más usado.', nl: 'De ANDERS-regel hoort de zet te zijn die je het meest gebruikt.', fr: 'La ligne SINON devrait être le mouvement le plus utilisé.' },
+  { tr: 'Takıldıysan ipucu iste: çözüm satır satır açılır.', en: 'Stuck? Ask for a hint: the solution opens line by line.', de: 'Festgefahren? Hol dir einen Tipp: Die Lösung öffnet sich Zeile für Zeile.', es: '¿Atascado? Pide una pista: la solución se abre línea a línea.', nl: 'Vast? Vraag een hint: de oplossing gaat regel voor regel open.', fr: 'Bloqué ? Demande un indice : la solution s’ouvre ligne par ligne.' },
 ];
 
 export const LEVEL_NAMES: Entry[] = [
@@ -197,6 +249,20 @@ export const LEVEL_TIPS: Entry[] = [
   },
 ];
 
+const PER_WORLD = 10;
+
 export const worldName = (lang: Lang, i: number) => WORLD_NAMES[i]?.[lang] ?? '';
-export const levelName = (lang: Lang, k: number) => LEVEL_NAMES[k]?.[lang] ?? '';
-export const levelTip = (lang: Lang, k: number) => LEVEL_TIPS[k]?.[lang] ?? '';
+export const worldIntro = (lang: Lang, i: number) => WORLD_INTROS[i]?.[lang] ?? '';
+
+/** Worlds 1–2 have their own level names; later levels are "<world name> <n>". */
+export function levelName(lang: Lang, k: number): string {
+  if (k < LEVEL_NAMES.length) return LEVEL_NAMES[k][lang];
+  return `${worldName(lang, Math.floor(k / PER_WORLD))} ${(k % PER_WORLD) + 1}`;
+}
+
+/** Worlds 1–2 have their own tips; later worlds open with the world's intro, then general tips. */
+export function levelTip(lang: Lang, k: number): string {
+  if (k < LEVEL_TIPS.length) return LEVEL_TIPS[k][lang];
+  if (k % PER_WORLD === 0) return worldIntro(lang, Math.floor(k / PER_WORLD));
+  return GENERIC_TIPS[k % GENERIC_TIPS.length][lang];
+}

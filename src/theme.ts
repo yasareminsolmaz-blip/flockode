@@ -28,6 +28,11 @@ export const colors = {
   actLine: '#527C50',
   yellow: '#F7D348',
   blue: '#6FA8F5',
+  red: '#F26B6B',
+  wolf: '#8E95A3',
+  wolfDark: '#4B505C',
+  water: '#3E7FB8',
+  waterLight: '#7FB6E6',
   star: '#F4BA4E',
   starOff: '#3A4F6E',
 } as const;

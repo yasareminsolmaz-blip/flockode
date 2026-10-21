@@ -6,12 +6,12 @@ import { act, everySquare, field, flockWorks, lines, shuffled, starsFor, walk, w
 
 const data: { worlds: World[]; levels: Level[] } = JSON.parse(fs.readFileSync(new URL('./levels.json', import.meta.url), 'utf8'));
 
-test('two free worlds of 10 levels', () => {
-  assert.equal(data.worlds.length, 2);
-  assert.equal(data.levels.length, 20);
+test('20 worlds of 10 levels, first two free', () => {
+  assert.equal(data.worlds.length, 20);
+  assert.equal(data.levels.length, 200);
   data.worlds.forEach((w, i) => {
     assert.equal(w.b - w.a, 10);
-    assert.equal(w.free, true);
+    assert.equal(w.free, i < 2);
     for (let k = w.a; k < w.b; k++) assert.equal(data.levels[k].w, i);
   });
 });
@@ -56,6 +56,23 @@ test('rules', () => {
   // A sheep that only turns repeats itself and is reported as never arriving.
   assert.equal(walk(F, { rules: [], def: 'right' }, { x: 0, y: 0, d: 0 }), -1);
   assert.equal(walk(F, { rules: [{ c: 'fenceAhead', a: 'stepRight' }], def: 'forward' }, { x: 0, y: 1, d: 1 }), 2);
+});
+
+test('wolves and streams', () => {
+  const F = field({ map: ['>R.B', '.w..'] });
+  // The stream carries the sheep one more square: two squares in one step, then into the barn.
+  const s = { x: 0, y: 0, d: 1 };
+  assert.equal(act(F, s, 'forward'), 'move');
+  assert.deepEqual(s, { x: 2, y: 0, d: 1 });
+  assert.equal(act(F, s, 'forward'), 'barn');
+  // Walking onto a wolf loses the sheep.
+  assert.equal(act(F, { x: 0, y: 1, d: 1 }, 'forward'), 'wolf');
+  assert.equal(walk(F, { rules: [], def: 'forward' }, { x: 0, y: 1, d: 1 }), -1);
+  assert.equal(
+    walk(F, { rules: [{ c: 'wolfAhead', a: 'left' }, { c: 'fenceAhead', a: 'right' }], def: 'forward' }, { x: 0, y: 1, d: 1 }),
+    5,
+  );
+  assert.ok(!F.grass.some((g) => g.x === 1 && g.y === 1), 'a wolf square is not a start square');
 });
 
 test('stars and shuffling', () => {

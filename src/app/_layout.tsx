@@ -6,6 +6,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from '../components/ui';
 import { deviceLang } from '../i18n';
 import { translate } from '../i18n/strings';
+import { startPurchases } from '../logic/purchases';
 import { configureAudio } from '../logic/sounds';
 import { ProgressProvider, useProgress } from '../store/Progress';
 import { colors } from '../theme';
@@ -38,7 +39,11 @@ const navTheme = {
 };
 
 function RootNavigator() {
-  const { hydrated } = useProgress();
+  const { hydrated, setOwned } = useProgress();
+  // Connect to the App Store once; restores the full version on new devices and receives late approvals.
+  useEffect(() => {
+    if (hydrated) startPurchases(() => setOwned(true));
+  }, [hydrated, setOwned]);
   useEffect(() => {
     if (hydrated) SplashScreen.hideAsync().catch(() => {});
   }, [hydrated]);
@@ -49,6 +54,7 @@ function RootNavigator() {
       <Stack.Screen name="index" />
       <Stack.Screen name="world/[w]" />
       <Stack.Screen name="level/[id]" options={{ gestureEnabled: false }} />
+      <Stack.Screen name="shop" options={{ presentation: 'modal' }} />
     </Stack>
   );
 }

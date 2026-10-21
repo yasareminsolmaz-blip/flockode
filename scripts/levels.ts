@@ -1,10 +1,12 @@
-// Level generator: checks every hand-drawn field, finds the shortest program that brings sheep
-// home from every square, and writes src/game/levels.json.
+// Level list: worlds 1–2 are drawn by hand below, worlds 3–20 come from scripts/generated.json
+// (made by scripts/generate.ts). Every level is checked again here: the stored solution must work
+// from every square and no shorter program may exist. Writes src/game/levels.json.
 // Run: node --no-warnings scripts/levels.ts   (add --check to only print the table)
 import fs from 'node:fs';
 
 import { field, lines, works, flockWorks, type Act, type Cond, type Level, type Program, type World } from '../src/game/engine.ts';
-import { programs } from './shared.ts';
+import { fmt, programs } from './shared.ts';
+import type { Gen } from './generate.ts';
 
 const A = { conds: ['fenceAhead'] as Cond[], acts: ['forward', 'right', 'left'] as Act[] };
 const B = { conds: ['fenceAhead', 'freeAhead'] as Cond[], acts: ['forward', 'right', 'left', 'back'] as Act[] };
@@ -19,7 +21,9 @@ interface Src {
   manual?: Program;
 }
 
-export const WORLD_SIZES = [10, 10];
+const WORLDS = 20;
+const PER_WORLD = 10;
+const generated: Record<string, Gen[]> = JSON.parse(fs.readFileSync(new URL('./generated.json', import.meta.url), 'utf8'));
 
 // Fields 1.7 onwards were found with scripts/explore.ts and then checked here.
 const SRC: Src[] = [
@@ -54,32 +58,43 @@ function solve(s: Src, k = 3): Program | null {
   return null;
 }
 
-const fmt = (p: Program) => [...p.rules.map((r) => `${r.c}→${r.a}`), `else ${p.def}`].join(' | ');
+/** True when no program with fewer rules than `p` works (so `p` really is a shortest one). */
+function shortest(map: string[], tools: Src['tools'], p: Program): boolean {
+  const F = field({ map });
+  for (let n = 0; n < p.rules.length; n++) for (const q of programs(tools, n)) if (works(F, q)) return false;
+  return true;
+}
 
 const levels: Level[] = [];
 const worlds: World[] = [];
 let ok = true;
-let i = 0;
-WORLD_SIZES.forEach((size, w) => {
-  worlds.push({ idx: w, free: w < 2, a: i, b: i + size });
-  for (let j = 0; j < size; j++, i++) {
-    const s = SRC[i];
-    const F = field(s);
-    const widths = new Set(s.map.map((r) => r.length));
-    let sol = solve(s);
-    if (!sol && s.manual && works(F, s.manual)) sol = s.manual;
-    const naive: Program = { rules: [], def: 'forward' };
+for (let w = 0; w < WORLDS; w++) {
+  const a = w * PER_WORLD;
+  worlds.push({ idx: w, free: w < 2, a, b: a + PER_WORLD });
+  const gen = w >= 2 ? generated[w + 1] : null;
+  for (let j = 0; j < PER_WORLD; j++) {
+    const i = a + j;
     const tag = `${w + 1}.${j + 1}`;
-    if (widths.size !== 1 || F.flock.length === 0 || !sol) {
+    const s: Src | undefined = w < 2 ? SRC[i] : gen?.[j] && { map: gen[j].map, tools: { conds: gen[j].conds, acts: gen[j].acts }, manual: gen[j].sol };
+    if (!s) {
       ok = false;
-      console.log(tag, 'PROBLEM', widths.size !== 1 ? 'ragged' : F.flock.length === 0 ? 'no sheep' : 'no solution');
+      console.log(tag, 'PROBLEM missing (run scripts/generate.ts)');
       continue;
     }
-    const earlier = levels.map((L, n) => (works(F, L.sol) ? n + 1 : 0)).filter(Boolean);
-    console.log(tag, `lines=${lines(sol)}`, `sheep=${F.flock.length}`, `naive=${flockWorks(F, naive)}`, `earlierWork=[${earlier}]`, fmt(sol));
+    const F = field(s);
+    const widths = new Set(s.map.map((r) => r.length));
+    // Hand-drawn levels are solved here; generated ones bring their solution and are re-checked.
+    let sol = w < 2 ? solve(s) : null;
+    if (!sol && s.manual && works(F, s.manual) && shortest(s.map, s.tools, s.manual)) sol = s.manual;
+    if (widths.size !== 1 || F.flock.length === 0 || !sol || flockWorks(F, { rules: [], def: 'forward' }) !== (i === 0)) {
+      ok = false;
+      console.log(tag, 'PROBLEM', widths.size !== 1 ? 'ragged' : F.flock.length === 0 ? 'no sheep' : !sol ? 'no solution' : 'starting code works');
+      continue;
+    }
+    if (w < 2 || process.argv.includes('--all')) console.log(tag, `lines=${lines(sol)}`, `sheep=${F.flock.length}`, fmt(sol));
     levels.push({ k: i, w, map: s.map, conds: s.tools.conds, acts: s.tools.acts, best: lines(sol), sol });
   }
-});
+}
 
 if (!process.argv.includes('--check')) {
   if (!ok) {

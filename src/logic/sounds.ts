@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import { useProgress } from '../store/Progress';
 
-// Four short, quiet effects. Played only at key moments, never on every step:
+// Four short, quiet sheep sounds (scripts/make-sounds.py). Played only at key moments:
 // start  – the flock starts running the code
 // win    – the whole flock is in the barn
 // fail   – some sheep can never reach the barn

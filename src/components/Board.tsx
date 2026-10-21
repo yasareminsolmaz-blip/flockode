@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, type ReactNode } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, G, Line, Path, Rect } from 'react-native-svg';
 
-import { cellAt, DX, DY, type Field } from '../game/engine';
+import { cellAt, DX, DY, streamDir, type Field } from '../game/engine';
 import { colors } from '../theme';
 import { SheepArt } from './Icons';
 
@@ -16,6 +16,8 @@ export interface SheepView {
   /** Facing in degrees, counted up from the start so turns always animate the short way */
   angle: number;
   done: boolean;
+  /** Walked onto a wolf */
+  eaten: boolean;
   lost: boolean;
   /** The sheep tried to walk into a fence this step */
   bump: boolean;
@@ -75,7 +77,8 @@ export const Board = memo(function Board({
 const SheepSprite = memo(function SheepSprite({ s, cell, ms }: { s: SheepView; cell: number; ms: number }) {
   const pos = useRef(new Animated.ValueXY({ x: (s.x + s.ox) * cell, y: (s.y + s.oy) * cell })).current;
   const rot = useRef(new Animated.Value(s.angle)).current;
-  const scale = useRef(new Animated.Value(s.done ? 0 : 1)).current;
+  const away = s.done || s.eaten;
+  const scale = useRef(new Animated.Value(away ? 0 : 1)).current;
   const first = useRef(true);
   const cellRef = useRef(cell);
 
@@ -90,7 +93,7 @@ const SheepSprite = memo(function SheepSprite({ s, cell, ms }: { s: SheepView; c
       scale.stopAnimation();
       pos.setValue(target);
       rot.setValue(s.angle);
-      scale.setValue(s.done ? 0 : 1);
+      scale.setValue(away ? 0 : 1);
       return;
     }
     const anims: Animated.CompositeAnimation[] = [
@@ -108,7 +111,7 @@ const SheepSprite = memo(function SheepSprite({ s, cell, ms }: { s: SheepView; c
     } else {
       anims.push(Animated.timing(pos, { toValue: target, duration: ms * 0.9, easing: Easing.inOut(Easing.quad), useNativeDriver: true }));
     }
-    if (s.done) anims.push(Animated.timing(scale, { toValue: 0, duration: ms, easing: Easing.in(Easing.quad), useNativeDriver: true }));
+    if (away) anims.push(Animated.timing(scale, { toValue: 0, duration: ms, easing: Easing.in(Easing.quad), useNativeDriver: true }));
     Animated.parallel(anims).start();
     // Animate only when the step changes; the other fields arrive with it.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -124,7 +127,7 @@ const SheepSprite = memo(function SheepSprite({ s, cell, ms }: { s: SheepView; c
       <Animated.View style={{ transform: [{ rotate }, { rotate: '-90deg' }] }}>
         <SheepArt size={cell * 0.92} />
       </Animated.View>
-      {s.lost && !s.done && (
+      {s.lost && !away && (
         <View style={[styles.lost, { width: cell * 0.36, height: cell * 0.36, borderRadius: cell, top: 0, right: cell * 0.04 }]}>
           <Text style={[styles.lostText, { fontSize: cell * 0.26 }]}>?</Text>
         </View>
@@ -143,7 +146,34 @@ const Ground = memo(function Ground({ F, cell }: { F: Field; cell: number }) {
       parts.push(
         <Rect key={`g${x},${y}`} x={x * u} y={y * u} width={u + 0.5} height={u + 0.5} fill={c === '#' ? colors.soil : (x + y) % 2 ? colors.meadow : colors.meadow2} />,
       );
-      if (c !== '#') {
+      const sd = streamDir(c);
+      if (sd >= 0) {
+        // Water with three chevrons pointing the way it flows
+        parts.push(<Rect key={`s${x},${y}`} x={x * u} y={y * u} width={u + 0.5} height={u + 0.5} fill={colors.water} />);
+        const cx = (x + 0.5) * u;
+        const cy = (y + 0.5) * u;
+        for (let k = -1; k <= 1; k++) {
+          const ox = DX[sd] * k * u * 0.24;
+          const oy = DY[sd] * k * u * 0.24;
+          const tip = { x: cx + ox + DX[sd] * u * 0.08, y: cy + oy + DY[sd] * u * 0.08 };
+          const px = -DY[sd] * u * 0.14;
+          const py = DX[sd] * u * 0.14;
+          const bx = tip.x - DX[sd] * u * 0.12;
+          const by = tip.y - DY[sd] * u * 0.12;
+          parts.push(
+            <Path
+              key={`sc${x},${y},${k}`}
+              d={`M${bx + px} ${by + py}L${tip.x} ${tip.y}L${bx - px} ${by - py}`}
+              stroke={colors.waterLight}
+              strokeWidth={u * 0.05}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+              opacity={0.85}
+            />,
+          );
+        }
+      } else if (c !== '#') {
         for (let k = 0; k < 3; k++) {
           const tx = (x + 0.2 + ((x * 7 + y * 13 + k * 29) % 60) / 100) * u;
           const ty = (y + 0.25 + ((x * 11 + y * 5 + k * 17) % 55) / 100) * u;
@@ -187,8 +217,22 @@ const Ground = memo(function Ground({ F, cell }: { F: Field; cell: number }) {
       if (c === '#') {
         parts.push(<Circle key={`p${x},${y}`} cx={cx} cy={cy + u * 0.02} r={u * 0.13} fill={colors.woodDark} />);
         parts.push(<Circle key={`q${x},${y}`} cx={cx} cy={cy} r={u * 0.1} fill={colors.wood} />);
-      } else if (c === 'y' || c === 'b') {
-        const col = c === 'y' ? colors.yellow : colors.blue;
+      } else if (c === 'w') {
+        // A wolf seen from above: grey head, pointed ears, yellow eyes
+        parts.push(
+          <G key={`w${x},${y}`}>
+            <Circle cx={cx} cy={cy + u * 0.04} r={u * 0.3} fill="rgba(0,0,0,0.25)" />
+            <Path d={`M${cx - u * 0.24} ${cy - u * 0.06}L${cx - u * 0.2} ${cy - u * 0.36}L${cx - u * 0.04} ${cy - u * 0.2}Z`} fill={colors.wolfDark} />
+            <Path d={`M${cx + u * 0.24} ${cy - u * 0.06}L${cx + u * 0.2} ${cy - u * 0.36}L${cx + u * 0.04} ${cy - u * 0.2}Z`} fill={colors.wolfDark} />
+            <Circle cx={cx} cy={cy} r={u * 0.25} fill={colors.wolf} />
+            <Path d={`M${cx - u * 0.1} ${cy + u * 0.08}Q${cx} ${cy + u * 0.32} ${cx + u * 0.1} ${cy + u * 0.08}Z`} fill={colors.wolfDark} />
+            <Circle cx={cx - u * 0.09} cy={cy - u * 0.04} r={u * 0.045} fill={colors.lantern} />
+            <Circle cx={cx + u * 0.09} cy={cy - u * 0.04} r={u * 0.045} fill={colors.lantern} />
+            <Circle cx={cx} cy={cy + u * 0.12} r={u * 0.035} fill="#1D1D24" />
+          </G>,
+        );
+      } else if (c === 'y' || c === 'b' || c === 'r') {
+        const col = c === 'y' ? colors.yellow : c === 'b' ? colors.blue : colors.red;
         [0, 72, 144, 216, 288].forEach((a) =>
           parts.push(
             <Circle

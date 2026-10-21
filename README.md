@@ -10,7 +10,9 @@
 - **3 yıldız:** sürü ahıra girdi · kod her kareden çalışıyor · kod en kısa satır sayısında.
 - **Karıştır** kuzuları rastgele dağıtır. **Her kareden dene**, her kareyi ve her yönü tek tek dener, tahtayı yeşil, sarı ve kırmızıyla boyar. Kuzular birbirini engellemediği için bu test kesin bir doğruluk testidir.
 - Hep aynı yolda dönen kuzular soru işaretiyle gösterilir (sonsuz döngü).
-- **Dünya 1 Çayır:** önüm çit, dönüşler, sonra sağına ve soluna bakmak. **Dünya 2 Labirent:** çiçek tabelaları ve "sap" hareketleri (dön ve aynı adımda ilerle), sağ el ve sol el kuralı. Yeni dünyalar sonra eklenecek.
+- **20 dünya, 200 seviye.** Dünya 1 Çayır (önüm çit, dönüşler, sağa sola bakmak) ve Dünya 2 Labirent (çiçek tabelaları, "sap" hareketleri, sağ el ve sol el kuralı) ücretsiz. Dünya 3–20 tek bir satın almayla açılır ([docs/uygulama-ici-satin-alma.md](docs/uygulama-ici-satin-alma.md)).
+- Dünya 3–5 yeni oyun parçası tanıtır: **kırmızı çiçek**, **kurt** (kurdun karesine basan kuzu kaybolur) ve **dere** (basan kuzuyu bir kare sürükler). Sonraki dünyalar bunları daha büyük tarla ve labirentlerde birleştirir.
+- **Sesler kuzu sesi:** başlarken kısa bir "meee", sürü ahırdayken üç neşeli meleme ve çan, kuzular takılınca uzun ve üzgün bir meleme, çite çarpınca toynak sesi. `scripts/make-sounds.py` ile sentezlenir.
 - Ana ekranda Robo Rota tanıtım kartı var. App Store bağlantısı ebeveyn kontrolünün (çarpma sorusu) arkasında.
 
 ## Kod yapısı
@@ -18,11 +20,13 @@
 | Yol | İçerik |
 | --- | --- |
 | `src/game/engine.ts` | Oyun kuralları: algılama, hareketler, döngü tespiti, her-kare testi, yıldızlar. Seviye üreticisiyle birebir aynı. |
-| `src/game/levels.json` | 2 dünya, 20 seviye: harita, kullanılabilir araçlar, en kısa çözüm. `scripts/levels.ts` üretir. |
+| `src/game/levels.json` | 20 dünya, 200 seviye: harita, kullanılabilir araçlar, en kısa çözüm. `scripts/levels.ts` üretir. |
+| `scripts/generate.ts` | Dünya 3–20'nin alanlarını rastgele çizer, her biri için en kısa kodu bulur ve `scripts/generated.json` dosyasına yazar (yavaş, yalnızca dünyaları yeniden yapmak için). |
 | `scripts/levels.ts` | Seviye listesi. Her alan için en kısa çalışan kodu arar ve `levels.json` dosyasını yazar: `node --no-warnings scripts/levels.ts` |
 | `scripts/explore.ts` | Yeni seviye adayları arar (rastgele labirent ve tarlalar, yeni bir şey öğreten kodlar). |
 | `src/game/engine.test.ts` | Kurallar ve her seviyenin kayıtlı çözümünün her kareden gerçekten çalıştığını doğrular. |
-| `src/app/` | Ekranlar: ana ekran, dünya, seviye (oyun). |
+| `src/app/` | Ekranlar: ana ekran, dünya, seviye (oyun), tam sürüm. |
+| `src/logic/purchases.ts` | Satın alma (expo-iap / StoreKit). Expo Go'da test modu. |
 | `src/components/` | Tahta ve kuzu animasyonu, kod düzenleyici, Robo Rota kartı, ebeveyn kontrolü, ortak düğmeler. |
 | `src/i18n/` | Arayüz metinleri (`strings.ts`), dünya/seviye adları ve ipuçları (`content.ts`). Testler her dilde eksik metin olmadığını denetler. |
 | `scripts/make-icons.py`, `scripts/make-sounds.py` | Uygulama simgesi ve ses efektleri. |

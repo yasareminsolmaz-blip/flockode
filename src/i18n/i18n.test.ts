@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import { test } from 'node:test';
 
 import { ACTS, CONDS, type Level } from '../game/engine.ts';
-import { LEVEL_NAMES, LEVEL_TIPS, levelName, levelTip, WORLD_NAMES } from './content.ts';
+import { GENERIC_TIPS, LEVEL_NAMES, LEVEL_TIPS, levelName, levelTip, WORLD_INTROS, WORLD_NAMES } from './content.ts';
 import { format, LANGS, pickLang, STRINGS } from './strings.ts';
 
 const data: { levels: Level[] } = JSON.parse(fs.readFileSync(new URL('../game/levels.json', import.meta.url), 'utf8'));
@@ -27,9 +27,13 @@ test('every condition and action has a label', () => {
 });
 
 test('every world, level name and level tip exists in every language', () => {
-  for (const table of [WORLD_NAMES, LEVEL_NAMES, LEVEL_TIPS]) for (const entry of table) for (const lang of LANGS) assert.ok(entry[lang]?.trim());
-  assert.equal(LEVEL_NAMES.length, data.levels.length);
-  assert.equal(LEVEL_TIPS.length, data.levels.length);
+  for (const table of [WORLD_NAMES, WORLD_INTROS, GENERIC_TIPS, LEVEL_NAMES, LEVEL_TIPS]) for (const entry of table) for (const lang of LANGS) assert.ok(entry[lang]?.trim());
+  assert.equal(WORLD_NAMES.length, 20);
+  assert.equal(WORLD_INTROS.length, 20);
+  assert.equal(LEVEL_NAMES.length, 20);
+  assert.equal(LEVEL_TIPS.length, 20);
+  assert.equal(levelName('tr', 47), 'Dere 8');
+  assert.equal(levelName('en', 199), 'Legendary Flock 10');
   for (const L of data.levels) for (const lang of LANGS) assert.ok(levelName(lang, L.k) && levelTip(lang, L.k));
 });
 

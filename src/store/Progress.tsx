@@ -11,6 +11,8 @@ interface Saved {
   unlocked: number;
   /** Best stars per level index */
   stars: number[];
+  /** Full version (worlds 3–20) unlocked */
+  owned: boolean;
   /** Sound effects on */
   sound: boolean;
   /** Interface language; 'auto' follows the device */
@@ -20,11 +22,15 @@ interface Saved {
 interface ProgressValue extends Saved {
   hydrated: boolean;
   recordWin: (level: number, stars: number) => void;
+  setOwned: (owned: boolean) => void;
+  /** Test helper: opens every level */
+  unlockAll: () => void;
+  resetProgress: () => void;
   setSound: (on: boolean) => void;
   setLang: (lang: Lang | 'auto') => void;
 }
 
-const DEFAULT: Saved = { unlocked: 1, stars: [], sound: true, lang: 'auto' };
+const DEFAULT: Saved = { unlocked: 1, stars: [], owned: false, sound: true, lang: 'auto' };
 const Ctx = createContext<ProgressValue | null>(null);
 
 export function ProgressProvider({ children }: { children: ReactNode }) {
@@ -39,6 +45,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         setState({
           unlocked: Math.min(LEVELS.length, Math.max(1, Number(s.unlocked) || 1)),
           stars: Array.isArray(s.stars) ? s.stars.map((n) => Number(n) || 0) : [],
+          owned: !!s.owned,
           sound: s.sound !== false,
           lang: s.lang && (LANGS as readonly string[]).includes(s.lang) ? s.lang : 'auto',
         });
@@ -58,10 +65,16 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       return { ...s, stars: next, unlocked: Math.min(LEVELS.length, Math.max(s.unlocked, level + 2)) };
     });
   }, []);
+  const setOwned = useCallback((owned: boolean) => setState((s) => ({ ...s, owned })), []);
+  const unlockAll = useCallback(() => setState((s) => ({ ...s, unlocked: LEVELS.length })), []);
+  const resetProgress = useCallback(() => setState((s) => ({ ...DEFAULT, owned: s.owned, sound: s.sound, lang: s.lang })), []);
   const setSound = useCallback((on: boolean) => setState((s) => ({ ...s, sound: on })), []);
   const setLang = useCallback((lang: Lang | 'auto') => setState((s) => ({ ...s, lang })), []);
 
-  const value = useMemo(() => ({ ...state, hydrated, recordWin, setSound, setLang }), [state, hydrated, recordWin, setSound, setLang]);
+  const value = useMemo(
+    () => ({ ...state, hydrated, recordWin, setOwned, unlockAll, resetProgress, setSound, setLang }),
+    [state, hydrated, recordWin, setOwned, unlockAll, resetProgress, setSound, setLang],
+  );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
@@ -70,3 +83,5 @@ export function useProgress() {
   if (!v) throw new Error('useProgress must be used inside ProgressProvider');
   return v;
 }
+
+export const isPlayableWorld = (free: boolean, owned: boolean) => free || owned;

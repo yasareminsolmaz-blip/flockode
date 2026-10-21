@@ -5,15 +5,16 @@ import { BackButton, Screen } from '../../components/Screen';
 import { Card, Stars, ui } from '../../components/ui';
 import { worldStars, WORLDS } from '../../game/data';
 import { useI18n } from '../../i18n';
-import { useProgress } from '../../store/Progress';
+import { isPlayableWorld, useProgress } from '../../store/Progress';
 import { colors } from '../../theme';
 
 export default function WorldScreen() {
   const { w } = useLocalSearchParams<{ w: string }>();
   const world = WORLDS[Number(w)];
-  const { stars, unlocked } = useProgress();
-  const { t, levelName, worldName } = useI18n();
+  const { stars, unlocked, owned } = useProgress();
+  const { t, levelName, worldName, worldIntro } = useI18n();
   if (!world) return <Redirect href="/" />;
+  if (!isPlayableWorld(world.free, owned)) return <Redirect href="/shop" />;
   const max = (world.b - world.a) * 3;
 
   return (
@@ -22,7 +23,7 @@ export default function WorldScreen() {
       <Card>
         <Text style={ui.eyebrow}>{t('worldN', { n: world.idx + 1 })}</Text>
         <Text style={ui.title}>{worldName(world.idx)}</Text>
-        <Text style={styles.body}>{world.idx === 0 ? t('introWorld1') : t('introWorld2')}</Text>
+        <Text style={styles.body}>{worldIntro(world.idx)}</Text>
         <Text style={styles.sum}>
           ★ {worldStars(stars, world)} / {max}
         </Text>

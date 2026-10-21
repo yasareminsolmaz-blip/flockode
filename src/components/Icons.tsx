@@ -110,14 +110,28 @@ export function RobotMini({ size }: { size: number }) {
 
 /** Little picture for each condition: what the sheep looks at, from above. */
 export const CondArt = memo(function CondArt({ c, size = 26 }: { c: Cond; size?: number }) {
-  if (c === 'onYellow' || c === 'onBlue') return <Flower size={size} color={c === 'onYellow' ? colors.yellow : colors.blue} />;
+  if (c === 'onYellow' || c === 'onBlue' || c === 'onRed')
+    return <Flower size={size} color={c === 'onYellow' ? colors.yellow : c === 'onBlue' ? colors.blue : colors.red} />;
+  if (c === 'onStream')
+    return (
+      <Svg width={size} height={size} viewBox="0 0 24 24">
+        <Rect x={2} y={2} width={20} height={20} rx={5} fill={colors.water} />
+        <Path d="M6 10l3-3 3 3M12 17l3-3 3 3" stroke={colors.waterLight} strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <Circle cx={12} cy={13} r={3} fill={colors.wool} />
+      </Svg>
+    );
   // A sheep dot in the middle facing up, and the square it checks.
   const spot = c.endsWith('Ahead') ? { x: 9, y: 1 } : c.endsWith('Right') ? { x: 17, y: 9 } : { x: 1, y: 9 };
   const fence = c.startsWith('fence');
   const barn = c === 'barnAhead';
+  const wolf = c.startsWith('wolf');
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24">
-      <Rect x={spot.x} y={spot.y} width={6} height={6} rx={1.5} fill={barn ? colors.barn : fence ? colors.wood : 'none'} stroke={fence || barn ? 'none' : colors.good} strokeWidth={1.6} strokeDasharray={fence || barn ? undefined : '2 1.5'} />
+      {wolf ? (
+        <Circle cx={spot.x + 3} cy={spot.y + 3} r={3.4} fill={colors.wolf} stroke={colors.lantern} strokeWidth={1} />
+      ) : (
+        <Rect x={spot.x} y={spot.y} width={6} height={6} rx={1.5} fill={barn ? colors.barn : fence ? colors.wood : 'none'} stroke={fence || barn ? 'none' : colors.good} strokeWidth={1.6} strokeDasharray={fence || barn ? undefined : '2 1.5'} />
+      )}
       <Circle cx={12} cy={13} r={4} fill={colors.wool} />
       <Circle cx={12} cy={9.5} r={2} fill={colors.face} />
     </Svg>
