@@ -66,4 +66,13 @@ jobs:
           exit $code
 
       - name: Bundle iOS JavaScript
-        run: npx expo export --platform ios --output-dir dist
+        run: |
+          set +e
+          npx expo export --platform ios --output-dir dist > bundle.txt 2>&1
+          code=$?
+          cat bundle.txt
+          # Repeat the last lines as annotations so they show on the run page.
+          if [ $code -ne 0 ]; then
+            sed 's/\x1b\[[0-9;]*m//g' bundle.txt | grep -v '^\s*$' | tail -12 | while IFS= read -r line; do echo "::error title=bundle::$line"; done
+          fi
+          exit $code
