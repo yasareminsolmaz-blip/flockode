@@ -88,3 +88,131 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 - **iPad 13 inç**: en az 3 tane (2064 × 2752 ya da 2048 × 2732). TestFlight'taki Flockode'dan iPad'de ekran görüntüsü al: üst düğme + ses açma düğmesi.
 - **iPhone 6.9 inç**: en az 3 tane (1320 × 2868). Uygulama iPhone'da da çalıştığı için zorunlu. TestFlight'tan iPhone'a yükleyip al.
 - Önerilen sahneler: ana ekran (dünyalar), kod yazılmış bir seviye, "Her kareden dene" ile yeşile boyanmış tahta, kurtlu ya da dereli bir seviye, 3 yıldızlı kazanma ekranı.
+
+---
+
+Aşağıdaki dört dilde metinler düz yazı. Olduğu gibi kopyala-yapıştır.
+
+## Deutsch
+
+**Untertitel**: `Ein Code für die ganze Herde`
+
+**Werbetext**
+
+Schreib ein Programm und sieh zu, wie jedes Schaf es gleichzeitig ausführt. Ein Programmier-Rätsel, bei dem dein Code von jedem Feld aus klappen muss, nicht durch Glück.
+
+**Beschreibung**
+
+Flockode ist ein Programmier-Rätsel für Kinder von 8 bis 12 Jahren mit einem besonderen Dreh: Du schreibst ein einziges Programm, und alle Schafe der Herde führen es gleichzeitig aus.
+
+Die Schafe starten an verschiedenen Stellen und schauen in verschiedene Richtungen, deshalb hilft eine auswendig gelernte Route nicht weiter. Kinder bauen WENN → DANN-Regeln („WENN vorne ein Zaun ist, dreh dich nach rechts“) und entdecken, wie man Code schreibt, der wirklich allgemein funktioniert.
+
+• Ein Code, viele Schafe: echtes Programmierdenken statt Schritt-für-Schritt-Steuerung
+• Herde mischen und jedes Feld testen: Ist dein Code richtig oder nur Glück?
+• Endlosschleifen erkennen: Schafe, die im Kreis laufen, bekommen ein Fragezeichen
+• Die Reihenfolge der Regeln zählt, genau wie in echtem Code
+• 20 Welten und 200 Level: Zäune, Blumen als Wegweiser, Seitenschritte, Wölfe und Bäche
+• Drei Sterne pro Level: Herde im Stall, klappt von jedem Feld, kürzester Code
+• Tipps, die die Lösung Zeile für Zeile zeigen
+• Sechs Sprachen: Deutsch, Englisch, Türkisch, Spanisch, Niederländisch und Französisch
+
+Welt 1–2 (20 Level) sind kostenlos. Ein einmaliger Kauf schaltet Welt 3–20 frei.
+
+Sicher für Kinder: keine Werbung, keine Konten, keine Datenerhebung und kein Internet nötig. Käufe und der Link zum App Store sind durch eine Elternkontrolle geschützt.
+
+**Schlüsselwörter**: `programmieren,kinder,coding,rätsel,logik,schafe,MINT,algorithmus,lernen,denken,schule`
+
+**Neuerungen**: `Erste Version.`
+
+## Français
+
+**Sous-titre**: `Un code pour tout le troupeau`
+
+**Texte promotionnel**
+
+Écris un programme et regarde chaque mouton l’exécuter en même temps. Un casse-tête de programmation où ton code doit marcher depuis chaque case, pas par chance.
+
+**Description**
+
+Flockode est un casse-tête de programmation pour les enfants de 8 à 12 ans, avec une idée originale : tu écris un seul programme et tous les moutons du troupeau l’exécutent en même temps.
+
+Les moutons partent d’endroits différents et regardent dans des directions différentes, alors un trajet appris par cœur ne suffit pas. Les enfants créent des règles SI → ALORS (« SI une clôture est devant, tourne à droite ») et découvrent comment écrire un code vraiment général.
+
+• Un code, beaucoup de moutons : une vraie pensée de programmeur, pas un pilotage pas à pas
+• Mélange le troupeau et teste chaque case : ton code est-il juste ou juste chanceux ?
+• Repère les boucles infinies : les moutons qui tournent en rond ont un point d’interrogation
+• L’ordre des règles compte, comme dans un vrai code
+• 20 mondes et 200 niveaux : clôtures, fleurs-panneaux, pas de côté, loups et ruisseaux
+• Trois étoiles par niveau : troupeau rentré, marche depuis chaque case, code le plus court
+• Des indices qui dévoilent la solution ligne par ligne
+• Six langues : français, anglais, turc, allemand, espagnol et néerlandais
+
+Les mondes 1–2 (20 niveaux) sont gratuits. Un achat unique débloque les mondes 3–20.
+
+Sûr pour les enfants : pas de publicité, pas de compte, aucune collecte de données et pas besoin d’internet. Les achats et le lien vers l’App Store sont protégés par un contrôle parental.
+
+**Mots-clés**: `programmation,enfants,coding,casse-tête,logique,moutons,algorithme,apprendre,école,jeu`
+
+**Nouveautés**: `Première version.`
+
+## Español
+
+**Subtítulo**: `Un código para todo el rebaño`
+
+**Texto promocional**
+
+Escribe un programa y mira cómo cada oveja lo ejecuta a la vez. Un rompecabezas de programación donde tu código debe funcionar desde cada casilla, no por suerte.
+
+**Descripción**
+
+Flockode es un rompecabezas de programación para niños de 8 a 12 años con un giro especial: escribes un solo programa y todas las ovejas del rebaño lo ejecutan al mismo tiempo.
+
+Las ovejas empiezan en lugares distintos y miran en direcciones distintas, así que una ruta aprendida de memoria no sirve. Los niños crean reglas SI → ENTONCES («SI hay una valla delante, gira a la derecha») y descubren cómo escribir código realmente general.
+
+• Un código, muchas ovejas: pensamiento de programador de verdad, no guiar paso a paso
+• Mezcla el rebaño y prueba cada casilla: ¿tu código es correcto o solo tiene suerte?
+• Detecta bucles infinitos: las ovejas que dan vueltas llevan un signo de interrogación
+• El orden de las reglas importa, igual que en el código real
+• 20 mundos y 200 niveles: vallas, flores como señales, pasos laterales, lobos y arroyos
+• Tres estrellas por nivel: rebaño en casa, funciona desde cada casilla, código más corto
+• Pistas que muestran la solución línea a línea
+• Seis idiomas: español, inglés, turco, alemán, neerlandés y francés
+
+Los mundos 1–2 (20 niveles) son gratis. Una única compra desbloquea los mundos 3–20.
+
+Seguro para niños: sin anuncios, sin cuentas, sin recogida de datos y sin necesidad de internet. Las compras y el enlace al App Store están protegidos por un control parental.
+
+**Palabras clave**: `programación,niños,coding,rompecabezas,lógica,ovejas,algoritmo,aprender,escuela,juego`
+
+**Novedades**: `Primera versión.`
+
+## Nederlands
+
+**Ondertitel**: `Eén code voor de hele kudde`
+
+**Promotietekst**
+
+Schrijf één programma en kijk hoe elk schaap het tegelijk uitvoert. Een programmeerpuzzel waarin je code vanaf elk vakje moet werken, niet alleen met geluk.
+
+**Beschrijving**
+
+Flockode is een programmeerpuzzel voor kinderen van 8 tot 12 jaar met een bijzondere draai: je schrijft één programma en alle schapen van de kudde voeren het tegelijk uit.
+
+De schapen beginnen op verschillende plekken en kijken verschillende kanten op, dus een uit het hoofd geleerde route werkt niet. Kinderen maken ALS → DAN-regels („ALS er een hek voor je is, draai naar rechts”) en ontdekken hoe je code schrijft die echt algemeen werkt.
+
+• Eén code, veel schapen: echt programmeursdenken in plaats van stap voor stap sturen
+• Schud de kudde en test elk vakje: klopt je code echt of had je geluk?
+• Herken eindeloze lussen: schapen die rondjes lopen, krijgen een vraagteken
+• De volgorde van de regels telt, net als in echte code
+• 20 werelden en 200 levels: hekken, bloemen als wegwijzers, zijstappen, wolven en beken
+• Drie sterren per level: kudde binnen, werkt vanaf elk vakje, kortste code
+• Hints die de oplossing regel voor regel laten zien
+• Zes talen: Nederlands, Engels, Turks, Duits, Spaans en Frans
+
+Wereld 1–2 (20 levels) zijn gratis. Eén eenmalige aankoop opent wereld 3–20.
+
+Veilig voor kinderen: geen reclame, geen accounts, geen gegevensverzameling en geen internet nodig. Aankopen en de link naar de App Store zitten achter een ouderlijk slot.
+
+**Trefwoorden**: `programmeren,kinderen,coding,puzzel,logica,schapen,algoritme,leren,school,denken,spel`
+
+**Nieuw**: `Eerste versie.`
