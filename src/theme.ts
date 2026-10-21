@@ -1,0 +1,42 @@
+// Night meadow palette, same as the web prototype: dark blue sky, green grass, lantern yellow.
+export const colors = {
+  night: '#12213A',
+  panel: '#1A2E4A',
+  panel2: '#233C5E',
+  line: '#2F4A70',
+  meadow: '#1C3A33',
+  meadow2: '#204238',
+  tuft: '#2F5A47',
+  soil: '#152A26',
+  wood: '#A77A4C',
+  woodDark: '#6E4C2C',
+  wool: '#F6F1E4',
+  face: '#3A3242',
+  lantern: '#F4BA4E',
+  lanternDark: '#B9822A',
+  barn: '#C94A3C',
+  barnDark: '#8F2F27',
+  ink: '#EBF1F6',
+  mute: '#9FB2C6',
+  good: '#82D48F',
+  warn: '#F4BA4E',
+  bad: '#F08470',
+  badBg: '#3A2530',
+  cond: '#2C4F7C',
+  condLine: '#3D6699',
+  act: '#3B5A3A',
+  actLine: '#527C50',
+  yellow: '#F7D348',
+  blue: '#6FA8F5',
+  star: '#F4BA4E',
+  starOff: '#3A4F6E',
+} as const;
+
+/** Soft drop shadow for cards and buttons. */
+export const cardShadow = {
+  borderWidth: 1,
+  borderColor: colors.line,
+  borderRadius: 18,
+  backgroundColor: colors.panel,
+  boxShadow: '0px 10px 24px rgba(0,0,0,0.28)',
+};

@@ -1,0 +1,41 @@
+name: iOS build (TestFlight)
+
+# Builds the iOS app on EAS and sends it to App Store Connect / TestFlight.
+# Run it from Actions → "iOS build (TestFlight)" → Run workflow.
+# The very first iOS build must be run once interactively so EAS can create the signing
+# certificate with your Apple account; see docs/ilk-ios-derleme.md (works from an iPad via Codespaces).
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+
+      - name: Typecheck and test
+        run: npx tsc --noEmit && npm test
+
+      - name: Build and submit
+        run: |
+          set +e
+          eas build --platform ios --profile production --auto-submit --non-interactive --no-wait 2>&1 | tee eas.txt
+          code=${PIPESTATUS[0]}
+          # Repeat EAS's own error lines as annotations so they show on the run page.
+          if [ $code -ne 0 ]; then
+            sed 's/\x1b\[[0-9;]*m//g' eas.txt | grep -v '^\s*$' | tail -12 | while IFS= read -r line; do echo "::error title=EAS::$line"; done
+          fi
+          exit $code

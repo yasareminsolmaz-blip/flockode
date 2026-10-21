@@ -1,0 +1,73 @@
+name: EAS Update (Expo Go)
+
+# On every push to main, publishes the app to the `main` channel so the latest version opens in
+# Expo Go on the iPad (expo.dev → suru → Updates → main → scan or open the link).
+# The first run also creates the EAS project and commits its id to app.json.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eas-update-main
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for EXPO_TOKEN
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "::error::EXPO_TOKEN secret is missing. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install --no-audit --no-fund; fi
+
+      # One-time setup: link the EAS project and configure updates, then save app.json.
+      - name: Link EAS project
+        run: |
+          if ! grep -q '"projectId"' app.json; then
+            eas init --non-interactive --force
+            eas update:configure --non-interactive || true
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add app.json eas.json
+            git commit -m "Link EAS project" && git push || true
+          fi
+
+      - name: Typecheck and test
+        run: npx tsc --noEmit && npm test
+
+      - name: Ensure main channel
+        run: eas channel:create main --non-interactive || true
+
+      - name: Publish update
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          message="${COMMIT_MESSAGE%%$'\n'*}"
+          eas update --branch main --message "${message:-Manual run ${GITHUB_SHA::7}}" \
+            --platform ios --non-interactive

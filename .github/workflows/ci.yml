@@ -1,0 +1,69 @@
+name: Check
+
+# Runs on every pull request and push to main: installs, aligns Expo package versions,
+# typechecks, tests every level, lints and bundles the iOS JavaScript.
+# On a pull request it commits package-lock.json (and any version fixes) back to the branch,
+# because the session that writes the code cannot reach the npm registry.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install
+        run: |
+          if [ -f package-lock.json ]; then npm ci || npm install --no-audit --no-fund; else npm install --no-audit --no-fund; fi
+
+      - name: Align package versions with the Expo SDK
+        run: npx expo install --fix
+
+      - name: Commit lockfile and version fixes
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.ref_name != 'main')
+        run: |
+          if [ -n "$(git status --porcelain package.json package-lock.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package.json package-lock.json
+            git commit -m "Update package-lock.json and align Expo versions"
+            git push
+          fi
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Test (rules and every level)
+        run: npm test
+
+      - name: Lint
+        run: |
+          set +e
+          npx expo lint > lint.txt 2>&1
+          code=$?
+          cat lint.txt
+          # Repeat problems as annotations so they show on the run page.
+          if [ $code -ne 0 ]; then
+            awk '/^\/home/ {f=$0; sub(/.*suru\/suru\//,"",f)} /^ +[0-9]+:[0-9]+ +error/ {print f ": " $0}' lint.txt | head -10 | while IFS= read -r line; do echo "::error title=lint::$line"; done
+          fi
+          exit $code
+
+      - name: Bundle iOS JavaScript
+        run: npx expo export --platform ios --output-dir dist

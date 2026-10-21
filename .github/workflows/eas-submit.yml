@@ -1,0 +1,42 @@
+name: iOS submit (TestFlight)
+
+# Sends an already finished (or still running) EAS iOS build to TestFlight.
+# Leave the build id empty to send the latest build.
+on:
+  workflow_dispatch:
+    inputs:
+      build_id:
+        description: EAS build id (empty = latest build)
+        required: false
+        default: ''
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install
+        run: npm ci || npm install --no-audit --no-fund
+
+      - name: Submit
+        env:
+          BUILD_ID: ${{ inputs.build_id }}
+        run: |
+          set +e
+          if [ -n "$BUILD_ID" ]; then target="--id $BUILD_ID"; else target="--latest"; fi
+          eas submit --platform ios --profile production $target --non-interactive 2>&1 | tee submit.txt
+          code=${PIPESTATUS[0]}
+          if [ $code -ne 0 ]; then
+            sed 's/\x1b\[[0-9;]*m//g' submit.txt | grep -v '^\s*$' | tail -12 | while IFS= read -r line; do echo "::error title=EAS::$line"; done
+          fi
+          exit $code
