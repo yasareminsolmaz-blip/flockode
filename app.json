@@ -19,6 +19,12 @@
           "de",
           "es",
           "nl",
+          "fr",
+          "en",
+          "tr",
+          "de",
+          "es",
+          "nl",
           "fr"
         ],
         "CFBundleDevelopmentRegion": "en",
@@ -28,6 +34,12 @@
         "NSPrivacyTracking": false,
         "NSPrivacyCollectedDataTypes": [],
         "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          },
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
             "NSPrivacyAccessedAPITypeReasons": [
@@ -65,7 +77,13 @@
       "policy": "sdkVersion"
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "cefbce17-3767-49bd-a229-52377f8baf68"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/cefbce17-3767-49bd-a229-52377f8baf68"
     }
   }
 }
