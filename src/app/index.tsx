@@ -13,7 +13,7 @@ import { isPlayableWorld, useProgress } from '../store/Progress';
 import { colors } from '../theme';
 
 export default function Home() {
-  const { stars, unlocked, owned } = useProgress();
+  const { stars, owned } = useProgress();
   const { t, worldName, worldIntro } = useI18n();
   const total = stars.reduce((a, b) => a + (b || 0), 0);
 
@@ -54,7 +54,6 @@ export default function Home() {
       <View style={styles.grid}>
         {WORLDS.map((w) => {
           const playable = isPlayableWorld(w.free, owned);
-          const started = w.a < unlocked;
           const s = worldStars(stars, w);
           const max = (w.b - w.a) * 3;
           const cleared = (stars[w.b - 1] ?? 0) > 0;
@@ -68,7 +67,7 @@ export default function Home() {
             >
               <View style={styles.worldTop}>
                 <Text style={styles.worldNum}>{w.idx + 1}</Text>
-                {(!started || !playable) && (
+                {!playable && (
                   <View style={styles.lockRow}>
                     <Icon name="lock" size={18} color={colors.mute} stroke={2.2} />
                   </View>

@@ -40,6 +40,10 @@ test('every stored solution brings sheep home from every square, using only the 
   }
 });
 
+test('the first level of every world is easy: at most 3 lines', () => {
+  for (const w of data.worlds) assert.ok(data.levels[w.a].best <= 3, `world ${w.idx + 1}`);
+});
+
 test('the starting code (always go forward) never finishes a level', () => {
   for (const L of data.levels.slice(1)) assert.equal(flockWorks(field(L), { rules: [], def: 'forward' }), false, `${L.k}`);
 });

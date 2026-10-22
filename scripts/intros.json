@@ -1,0 +1,671 @@
+{
+ "3": {
+  "map": [
+   ".rr#.>",
+   "<b>r^#",
+   ".^#..B"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onYellow",
+   "onBlue",
+   "onRed"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "freeAhead",
+     "a": "forward"
+    },
+    {
+     "c": "onRed",
+     "a": "right"
+    }
+   ],
+   "def": "left"
+  }
+ },
+ "4": {
+  "map": [
+   ".<..#",
+   ".B><w",
+   "..^.."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "wolfAhead",
+   "wolfRight",
+   "wolfLeft"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "wolfLeft",
+     "a": "right"
+    },
+    {
+     "c": "freeAhead",
+     "a": "forward"
+    }
+   ],
+   "def": "right"
+  }
+ },
+ "5": {
+  "map": [
+   "DB^<",
+   "D^<v",
+   "DRR."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "right"
+    },
+    {
+     "c": "fenceLeft",
+     "a": "right"
+    }
+   ],
+   "def": "forward"
+  }
+ },
+ "6": {
+  "map": [
+   "^^.#^",
+   "<#.#<",
+   ".b..y",
+   "B####"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onYellow",
+   "onBlue",
+   "onRed"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "left"
+    },
+    {
+     "c": "onYellow",
+     "a": "stepLeft"
+    }
+   ],
+   "def": "forward"
+  }
+ },
+ "7": {
+  "map": [
+   "...#^v.",
+   "##B#w#.",
+   ".#...#.",
+   ".#.#^#.",
+   ".^.>..."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "wolfAhead",
+   "wolfRight",
+   "wolfLeft"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "wolfLeft",
+     "a": "right"
+    },
+    {
+     "c": "freeRight",
+     "a": "stepRight"
+    }
+   ],
+   "def": "left"
+  }
+ },
+ "8": {
+  "map": [
+   "B#.<U",
+   ".#D#U",
+   "v.Dv.",
+   "#####"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceRight",
+     "a": "left"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "9": {
+  "map": [
+   "y^..",
+   ".B^.",
+   "^bwy",
+   "<#w."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "wolfAhead",
+   "onYellow",
+   "onBlue"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "wolfAhead",
+     "a": "right"
+    },
+    {
+     "c": "freeLeft",
+     "a": "stepLeft"
+    }
+   ],
+   "def": "right"
+  }
+ },
+ "10": {
+  "map": [
+   "B>DD",
+   "#bDD",
+   ">vDD",
+   "#.^v"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onYellow",
+   "onBlue",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceLeft",
+     "a": "right"
+    }
+   ],
+   "def": "stepLeft"
+  }
+ },
+ "11": {
+  "map": [
+   ".#.....",
+   ".#^###.",
+   ".......",
+   "<###.##",
+   "...<..B",
+   ".######"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "stepLeft"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "12": {
+  "map": [
+   "^>>D",
+   "BRRD",
+   ">.w.",
+   "w<.."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "wolfAhead",
+   "wolfRight",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "wolfRight",
+     "a": "back"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "13": {
+  "map": [
+   "B<r#",
+   "#...",
+   "<..<",
+   "..r<"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onYellow",
+   "onBlue",
+   "onRed"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "right"
+    },
+    {
+     "c": "onRed",
+     "a": "stepRight"
+    }
+   ],
+   "def": "forward"
+  }
+ },
+ "14": {
+  "map": [
+   "..v#B",
+   "..v..",
+   ".....",
+   ".##<.",
+   "..<^."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "left"
+    }
+   ],
+   "def": "forward"
+  }
+ },
+ "15": {
+  "map": [
+   "w..v.",
+   ".#B.^",
+   ".>.w.",
+   "....^"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "wolfAhead",
+   "wolfRight",
+   "wolfLeft"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "wolfRight",
+     "a": "stepLeft"
+    },
+    {
+     "c": "fenceAhead",
+     "a": "back"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "16": {
+  "map": [
+   "....v",
+   "..LLL",
+   ".^>..",
+   "#.B^."
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceAhead",
+     "a": "right"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "17": {
+  "map": [
+   ".rvLL",
+   "UB.y.",
+   "U^#<w",
+   "U^<w#"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "freeLeft",
+   "onYellow",
+   "onRed",
+   "wolfAhead",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "freeRight",
+     "a": "stepRight"
+    }
+   ],
+   "def": "right"
+  }
+ },
+ "18": {
+  "map": [
+   "B.^..#.",
+   "####.#.",
+   ".#.vy..",
+   "^#D###.",
+   "..D....",
+   "w######"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "freeLeft",
+   "onYellow",
+   "onRed",
+   "wolfAhead",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "freeRight",
+     "a": "stepRight"
+    }
+   ],
+   "def": "left"
+  }
+ },
+ "19": {
+  "map": [
+   "^#.>...",
+   ".#.###<",
+   ".#.#B#.",
+   "b#.#.#.",
+   "...#b..",
+   "#######"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "fenceLeft",
+   "freeLeft",
+   "onYellow",
+   "onBlue",
+   "onRed"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "fenceRight",
+     "a": "left"
+    }
+   ],
+   "def": "stepRight"
+  }
+ },
+ "20": {
+  "map": [
+   "yr.....",
+   ".###.#^",
+   "<#..^#.",
+   ".#.###.",
+   "<w.#>RR",
+   "##B####"
+  ],
+  "conds": [
+   "fenceAhead",
+   "freeAhead",
+   "fenceRight",
+   "freeRight",
+   "freeLeft",
+   "onYellow",
+   "onRed",
+   "wolfAhead",
+   "onStream"
+  ],
+  "acts": [
+   "forward",
+   "right",
+   "left",
+   "back",
+   "stepRight",
+   "stepLeft"
+  ],
+  "sol": {
+   "rules": [
+    {
+     "c": "freeRight",
+     "a": "stepRight"
+    }
+   ],
+   "def": "left"
+  }
+ }
+}

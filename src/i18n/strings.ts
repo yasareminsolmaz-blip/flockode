@@ -37,14 +37,6 @@ export const STRINGS = {
   levelN: { tr: 'Seviye {n}', en: 'Level {n}', de: 'Level {n}', es: 'Nivel {n}', nl: 'Level {n}', fr: 'Niveau {n}' },
   locked: { tr: 'Kilitli', en: 'Locked', de: 'Gesperrt', es: 'Bloqueado', nl: 'Op slot', fr: 'Verrouillé' },
   bossLevel: { tr: 'Dünya sonu', en: 'Final level', de: 'Endlevel', es: 'Nivel final', nl: 'Eindlevel', fr: 'Niveau final' },
-  worldOpensAfter: {
-    tr: 'Bu dünyanın seviyeleri, Dünya {n} bitince açılır.',
-    en: 'The levels of this world open after you finish World {n}.',
-    de: 'Die Level dieser Welt öffnen sich, wenn du Welt {n} geschafft hast.',
-    es: 'Los niveles de este mundo se abren al terminar el Mundo {n}.',
-    nl: 'De levels van deze wereld gaan open als je Wereld {n} hebt uitgespeeld.',
-    fr: "Les niveaux de ce monde s'ouvrent quand tu as fini le Monde {n}.",
-  },
   levelEyebrow: {
     tr: 'Dünya {w} · {name} · Seviye {n}',
     en: 'World {w} · {name} · Level {n}',
@@ -323,6 +315,14 @@ export const STRINGS = {
     es: 'Has terminado todos los niveles. ¡Eres un verdadero pastor experto!',
     nl: 'Je hebt alle levels uitgespeeld. Je bent een echte meesterherder!',
     fr: 'Tu as fini tous les niveaux. Tu es un vrai berger expert !',
+  },
+  skipAheadTip: {
+    tr: 'İpucu: Bu dünya, Dünya 1 ve 2\'de öğrenilenleri kullanıyor. Önce onları bitirmek işini kolaylaştırır.',
+    en: 'Tip: This world uses what you learn in Worlds 1 and 2. Finishing them first makes it easier.',
+    de: 'Tipp: Diese Welt nutzt, was du in Welt 1 und 2 lernst. Wenn du sie zuerst schaffst, wird es leichter.',
+    es: 'Consejo: Este mundo usa lo que aprendes en los Mundos 1 y 2. Terminarlos antes lo hace más fácil.',
+    nl: 'Tip: Deze wereld gebruikt wat je leert in Wereld 1 en 2. Als je die eerst uitspeelt, wordt het makkelijker.',
+    fr: 'Astuce : Ce monde utilise ce que tu apprends dans les Mondes 1 et 2. Les finir d\'abord rend les choses plus faciles.',
   },
 } satisfies Record<string, Entry>;
 

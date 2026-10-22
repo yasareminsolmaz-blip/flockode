@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { BackButton, Screen } from '../../components/Screen';
 import { Card, Stars, ui } from '../../components/ui';
-import { worldStars, WORLDS } from '../../game/data';
+import { freeWorldsUnfinished, isLevelOpen, worldStars, WORLDS } from '../../game/data';
 import { useI18n } from '../../i18n';
 import { isPlayableWorld, useProgress } from '../../store/Progress';
 import { colors } from '../../theme';
@@ -29,10 +29,16 @@ export default function WorldScreen() {
         </Text>
       </Card>
 
+      {!world.free && freeWorldsUnfinished(stars) && (
+        <View style={styles.tip}>
+          <Text style={styles.tipText}>{t('skipAheadTip')}</Text>
+        </View>
+      )}
+
       <View style={styles.levels}>
         {Array.from({ length: world.b - world.a }, (_, k) => {
           const i = world.a + k;
-          const open = i < unlocked;
+          const open = isLevelOpen(i, stars, unlocked);
           const boss = i === world.b - 1;
           return (
             <Pressable
@@ -53,7 +59,6 @@ export default function WorldScreen() {
           );
         })}
       </View>
-      {world.a >= unlocked && <Text style={ui.fine}>{t('worldOpensAfter', { n: world.idx })}</Text>}
     </Screen>
   );
 }
@@ -62,6 +67,8 @@ const styles = StyleSheet.create({
   body: { fontSize: 16, lineHeight: 23, color: colors.ink },
   sum: { fontWeight: '900', color: colors.star, fontSize: 16, fontVariant: ['tabular-nums'] },
   levels: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
+  tip: { borderRadius: 14, borderWidth: 1, borderColor: colors.lantern, backgroundColor: colors.panel, padding: 12 },
+  tipText: { fontSize: 15, lineHeight: 21, fontWeight: '700', color: colors.ink },
   level: {
     width: 150,
     flexGrow: 1,

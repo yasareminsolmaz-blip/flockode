@@ -1,5 +1,5 @@
-// Level list: worlds 1–2 are drawn by hand below, worlds 3–20 come from scripts/generated.json
-// (made by scripts/generate.ts). Every level is checked again here: the stored solution must work
+// Level list: worlds 1–2 are drawn by hand below, worlds 3–20 come from scripts/intros.json (first level)
+// and scripts/generated.json (made by scripts/intros.ts and scripts/generate.ts). Every level is checked again here: the stored solution must work
 // from every square and no shorter program may exist. Writes src/game/levels.json.
 // Run: node --no-warnings scripts/levels.ts   (add --check to only print the table)
 import fs from 'node:fs';
@@ -24,6 +24,8 @@ interface Src {
 const WORLDS = 20;
 const PER_WORLD = 10;
 const generated: Record<string, Gen[]> = JSON.parse(fs.readFileSync(new URL('./generated.json', import.meta.url), 'utf8'));
+// Easy first level of worlds 3–20 (scripts/intros.ts): open as soon as the world is playable.
+const intros: Record<string, Gen> = JSON.parse(fs.readFileSync(new URL('./intros.json', import.meta.url), 'utf8'));
 
 // Fields 1.7 onwards were found with scripts/explore.ts and then checked here.
 const SRC: Src[] = [
@@ -71,7 +73,8 @@ let ok = true;
 for (let w = 0; w < WORLDS; w++) {
   const a = w * PER_WORLD;
   worlds.push({ idx: w, free: w < 2, a, b: a + PER_WORLD });
-  const gen = w >= 2 ? generated[w + 1] : null;
+  // Worlds 3–20: the easy intro, then the generated levels after the easiest one.
+  const gen = w >= 2 ? [intros[w + 1], ...(generated[w + 1] ?? []).slice(1)] : null;
   for (let j = 0; j < PER_WORLD; j++) {
     const i = a + j;
     const tag = `${w + 1}.${j + 1}`;

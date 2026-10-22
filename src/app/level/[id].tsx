@@ -10,7 +10,7 @@ import { ProgramEditor, StaticProgram } from '../../components/ProgramEditor';
 import { BackButton } from '../../components/Screen';
 import { SoundToggle } from '../../components/SoundToggle';
 import { Button, Card, Overlay, ui } from '../../components/ui';
-import { LEVELS, newTools, WORLDS } from '../../game/data';
+import { isLevelOpen, LEVELS, newTools, WORLDS } from '../../game/data';
 import {
   act,
   actOf,
@@ -49,8 +49,8 @@ interface Sim extends Sheep {
 export default function LevelScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const index = Number(id);
-  const { unlocked, owned } = useProgress();
-  if (!LEVELS[index] || index >= unlocked) return <Redirect href="/" />;
+  const { unlocked, owned, stars } = useProgress();
+  if (!LEVELS[index] || !isLevelOpen(index, stars, unlocked)) return <Redirect href="/" />;
   if (!isPlayableWorld(WORLDS[LEVELS[index].w].free, owned)) return <Redirect href="/shop" />;
   // A fresh component per level keeps all play state local and resets it on "next level".
   return <Game key={index} index={index} />;

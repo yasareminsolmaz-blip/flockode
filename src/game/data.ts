@@ -20,3 +20,21 @@ export function newTools(index: number): (Cond | Act)[] {
   const had = new Set<string>([...prev.conds, ...prev.acts]);
   return [...L.conds, ...L.acts].filter((x) => !had.has(x));
 }
+
+/**
+ * A level is open when it is the first level of its world, when the level before it has a star,
+ * or when it was opened earlier (`unlocked`, kept from older saves). Paid worlds also need the
+ * full version; check that separately with isPlayableWorld.
+ */
+export function isLevelOpen(i: number, stars: number[], unlocked: number): boolean {
+  const L = LEVELS[i];
+  if (!L) return false;
+  return i === WORLDS[L.w].a || i < unlocked || (stars[i - 1] ?? 0) > 0;
+}
+
+/** True when World 2 (the last free world) has not been finished yet. */
+export const freeWorldsUnfinished = (stars: number[]) => {
+  const free = WORLDS.filter((w) => w.free);
+  const last = free[free.length - 1];
+  return !last || !((stars[last.b - 1] ?? 0) > 0);
+};
