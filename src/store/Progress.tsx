@@ -23,9 +23,6 @@ interface ProgressValue extends Saved {
   hydrated: boolean;
   recordWin: (level: number, stars: number) => void;
   setOwned: (owned: boolean) => void;
-  /** Test helper: opens every level */
-  unlockAll: () => void;
-  resetProgress: () => void;
   setSound: (on: boolean) => void;
   setLang: (lang: Lang | 'auto') => void;
 }
@@ -66,14 +63,12 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     });
   }, []);
   const setOwned = useCallback((owned: boolean) => setState((s) => ({ ...s, owned })), []);
-  const unlockAll = useCallback(() => setState((s) => ({ ...s, unlocked: LEVELS.length })), []);
-  const resetProgress = useCallback(() => setState((s) => ({ ...DEFAULT, owned: s.owned, sound: s.sound, lang: s.lang })), []);
   const setSound = useCallback((on: boolean) => setState((s) => ({ ...s, sound: on })), []);
   const setLang = useCallback((lang: Lang | 'auto') => setState((s) => ({ ...s, lang })), []);
 
   const value = useMemo(
-    () => ({ ...state, hydrated, recordWin, setOwned, unlockAll, resetProgress, setSound, setLang }),
-    [state, hydrated, recordWin, setOwned, unlockAll, resetProgress, setSound, setLang],
+    () => ({ ...state, hydrated, recordWin, setOwned, setSound, setLang }),
+    [state, hydrated, recordWin, setOwned, setSound, setLang],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

@@ -84,7 +84,8 @@
       }
     },
     "updates": {
-      "url": "https://u.expo.dev/cefbce17-3767-49bd-a229-52377f8baf68"
+      "url": "https://u.expo.dev/cefbce17-3767-49bd-a229-52377f8baf68",
+      "enabled": false
     }
   }
 }

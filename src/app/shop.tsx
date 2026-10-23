@@ -4,11 +4,11 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { CondArt } from '../components/Icons';
 import { BackButton, Screen } from '../components/Screen';
-import { Button, Card, Overlay, ParentalGate, ui } from '../components/ui';
+import { Button, Card, ParentalGate, ui } from '../components/ui';
 import { WORLDS } from '../game/data';
 import type { Cond } from '../game/engine';
 import { useI18n } from '../i18n';
-import { buyFullVersion, getFullVersionPrice, PURCHASES_TEST_MODE, restorePurchases } from '../logic/purchases';
+import { buyFullVersion, getFullVersionPrice, restorePurchases } from '../logic/purchases';
 import { useProgress } from '../store/Progress';
 import { colors } from '../theme';
 import { condKey } from '../components/ProgramEditor';
@@ -17,11 +17,10 @@ import { condKey } from '../components/ProgramEditor';
 const PIECES: Cond[] = ['onRed', 'wolfAhead', 'onStream'];
 
 export default function Shop() {
-  const { owned, setOwned, unlockAll, resetProgress } = useProgress();
+  const { owned, setOwned } = useProgress();
   const { t, worldName } = useI18n();
   const [gate, setGate] = useState<null | 'buy' | 'restore'>(null);
   const [gateSeed, setGateSeed] = useState(0);
-  const [confirm, setConfirm] = useState(false);
   const [note, setNote] = useState('');
   const [busy, setBusy] = useState(false);
   const [price, setPrice] = useState<string | null>(null);
@@ -41,7 +40,6 @@ export default function Shop() {
   }, [owned]);
 
   const buy = async () => {
-    setConfirm(false);
     setBusy(true);
     const r = await buyFullVersion();
     setBusy(false);
@@ -56,12 +54,8 @@ export default function Shop() {
   const passed = async () => {
     const what = gate;
     setGate(null);
-    // Test mode shows its own confirmation; real builds go straight to Apple's purchase sheet.
-    if (what === 'buy') {
-      if (PURCHASES_TEST_MODE) setConfirm(true);
-      // Wait for the gate to close so Apple's sheet can appear on top.
-      else setTimeout(buy, 500);
-    }
+    // Wait for the gate to close so Apple's purchase sheet can appear on top.
+    if (what === 'buy') setTimeout(buy, 500);
     if (what === 'restore') {
       setBusy(true);
       const found = await restorePurchases();
@@ -123,28 +117,8 @@ export default function Shop() {
         </View>
       </Card>
 
-      {PURCHASES_TEST_MODE && (
-        <Card style={styles.test}>
-          <Text style={ui.eyebrow}>{t('testTitle')}</Text>
-          <Text style={ui.fine}>{t('testBody')}</Text>
-          <View style={styles.row}>
-            <Button label={t('resetPurchase')} onPress={() => setOwned(false)} style={styles.small} />
-            <Button label={t('unlockAllLevels')} onPress={unlockAll} style={styles.small} />
-            <Button label={t('resetProgress')} onPress={resetProgress} style={styles.small} />
-          </View>
-        </Card>
-      )}
 
       <ParentalGate visible={gate !== null} seed={gateSeed} onPass={passed} onCancel={() => setGate(null)} />
-      <Overlay visible={confirm} onRequestClose={() => setConfirm(false)}>
-        <Text style={[ui.eyebrow, { textAlign: 'center' }]}>{t('inAppPurchase')}</Text>
-        <Text style={styles.confirmTitle}>{t('confirmTitle')}</Text>
-        <Text style={[styles.body, { textAlign: 'center' }]}>{t('confirmBody')}</Text>
-        <View style={styles.row}>
-          <Button label={t('cancel')} onPress={() => setConfirm(false)} />
-          <Button label={t('buy')} kind="go" onPress={buy} style={{ flexGrow: 1 }} />
-        </View>
-      </Overlay>
     </Screen>
   );
 }
@@ -163,7 +137,4 @@ const styles = StyleSheet.create({
   itemOwned: { borderStyle: 'solid', borderColor: colors.good },
   itemNum: { fontWeight: '900', color: colors.lantern, fontSize: 15, fontVariant: ['tabular-nums'] },
   itemName: { fontWeight: '700', color: colors.ink, fontSize: 14, flexShrink: 1 },
-  test: { borderStyle: 'dashed', boxShadow: 'none' },
-  small: { minHeight: 40, paddingHorizontal: 12 },
-  confirmTitle: { fontSize: 26, fontWeight: '900', color: colors.wool, textAlign: 'center' },
 });

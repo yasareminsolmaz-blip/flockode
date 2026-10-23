@@ -228,22 +228,14 @@ export const STRINGS = {
   fullVersion: { tr: 'Tam sürüm', en: 'Full version', de: 'Vollversion', es: 'Versión completa', nl: 'Volledige versie', fr: 'Version complète' },
   freeVersion: { tr: 'Ücretsiz sürüm', en: 'Free version', de: 'Gratisversion', es: 'Versión gratuita', nl: 'Gratis versie', fr: 'Version gratuite' },
   inFullVersion: { tr: 'Tam sürümde', en: 'In the full version', de: 'In der Vollversion', es: 'En la versión completa', nl: 'In de volledige versie', fr: 'Dans la version complète' },
-  buy: { tr: 'Satın al', en: 'Buy', de: 'Kaufen', es: 'Comprar', nl: 'Kopen', fr: 'Acheter' },
-  confirmBody: {
-    tr: 'Dünya 3–20 · 180 seviye. Tek seferlik. Ailedeki tüm cihazlarda açık kalır.',
-    en: 'Worlds 3–20 · 180 levels. One-time purchase. Stays open on all family devices.',
-    de: 'Welten 3–20 · 180 Level. Einmaliger Kauf. Bleibt auf allen Geräten der Familie freigeschaltet.',
-    es: 'Mundos 3–20 · 180 niveles. Pago único. Queda abierto en todos los dispositivos de la familia.',
-    nl: 'Werelden 3–20 · 180 levels. Eenmalige aankoop. Blijft open op alle apparaten van het gezin.',
-    fr: 'Mondes 3–20 · 180 niveaux. Achat unique. Reste ouvert sur tous les appareils de la famille.',
-  },  gateNote: {
+  gateNote: {
     tr: 'Satın alma ve geri yükleme her zaman ebeveyn kontrolünün arkasındadır. Reklam yoktur.',
     en: 'Buying and restoring are always behind a parental gate. There are no ads.',
     de: 'Kaufen und Wiederherstellen sind immer durch eine Elternkontrolle geschützt. Es gibt keine Werbung.',
     es: 'Comprar y restaurar siempre están protegidos por un control parental. No hay anuncios.',
     nl: 'Kopen en herstellen zitten altijd achter een ouderlijk slot. Er is geen reclame.',
     fr: 'Les achats et la restauration sont toujours protégés par un contrôle parental. Aucune publicité.',
-  },  inAppPurchase: { tr: 'Uygulama içi satın alma', en: 'In-app purchase', de: 'In-App-Kauf', es: 'Compra dentro de la app', nl: 'In-app-aankoop', fr: 'Achat intégré' },
+  },
   nothingToRestore: { tr: 'Geri yüklenecek bir satın alma bulunamadı.', en: 'No purchase to restore was found.', de: 'Es wurde kein Kauf zum Wiederherstellen gefunden.', es: 'No se encontró ninguna compra para restaurar.', nl: 'Er is geen aankoop gevonden om te herstellen.', fr: 'Aucun achat à restaurer.' },
   ownedNote: {
     tr: 'Tam sürüm açık! Bütün dünyalar senin. Seviyeler sırayla açılır.',
@@ -252,22 +244,23 @@ export const STRINGS = {
     es: '¡La versión completa está abierta! Todos los mundos son tuyos. Los niveles se abren en orden.',
     nl: 'De volledige versie is open! Alle werelden zijn van jou. Levels gaan op volgorde open.',
     fr: 'La version complète est ouverte ! Tous les mondes sont à toi. Les niveaux s’ouvrent dans l’ordre.',
-  },  purchaseFailed: {
+  },
+  purchaseFailed: {
     tr: 'Satın alma tamamlanamadı. Bağlantıyı kontrol edip yeniden dene.',
     en: "The purchase couldn't be completed. Check the connection and try again.",
     de: 'Der Kauf konnte nicht abgeschlossen werden. Prüfe die Verbindung und versuche es erneut.',
     es: 'No se pudo completar la compra. Revisa la conexión e inténtalo de nuevo.',
     nl: 'De aankoop is niet gelukt. Controleer de verbinding en probeer het opnieuw.',
     fr: "L'achat n'a pas pu aboutir. Vérifie la connexion et réessaie.",
-  },  purchasePending: {
+  },
+  purchasePending: {
     tr: 'Satın alma onay bekliyor. Onaylanınca dünyalar kendiliğinden açılacak.',
     en: 'The purchase is waiting for approval. The worlds will open automatically once it is approved.',
     de: 'Der Kauf wartet auf Bestätigung. Die Welten öffnen sich automatisch, sobald er bestätigt ist.',
     es: 'La compra está pendiente de aprobación. Los mundos se abrirán solos cuando se apruebe.',
     nl: 'De aankoop wacht op goedkeuring. De werelden gaan vanzelf open zodra hij is goedgekeurd.',
     fr: "L'achat attend une validation. Les mondes s'ouvriront automatiquement dès qu'il sera approuvé.",
-  },  resetProgress: { tr: 'İlerlemeyi sıfırla', en: 'Reset progress', de: 'Fortschritt zurücksetzen', es: 'Restablecer progreso', nl: 'Voortgang resetten', fr: 'Réinitialiser la progression' },
-  resetPurchase: { tr: 'Satın almayı sıfırla', en: 'Reset purchase', de: 'Kauf zurücksetzen', es: 'Restablecer compra', nl: 'Aankoop resetten', fr: "Réinitialiser l'achat" },
+  },
   restorePurchases: { tr: 'Satın alımları geri yükle', en: 'Restore purchases', de: 'Käufe wiederherstellen', es: 'Restaurar compras', nl: 'Aankopen herstellen', fr: 'Restaurer les achats' },
   restored: { tr: 'Tam sürüm geri yüklendi.', en: 'Full version restored.', de: 'Vollversion wiederhergestellt.', es: 'Versión completa restaurada.', nl: 'Volledige versie hersteld.', fr: 'Version complète restaurée.' },
   shopBody: {
@@ -277,22 +270,13 @@ export const STRINGS = {
     es: 'Una sola compra abre todos los mundos. Cada mundo trae una pieza nueva y los siguientes las combinan.',
     nl: 'Eén aankoop opent alle werelden. Elke wereld brengt een nieuw spelonderdeel, latere werelden combineren ze.',
     fr: 'Un seul achat ouvre tous les mondes. Chaque monde apporte un nouvel élément, et les suivants les combinent.',
-  },  shopEyebrow: { tr: 'Tam sürüm · Dünya 3–20', en: 'Full version · Worlds 3–20', de: 'Vollversion · Welten 3–20', es: 'Versión completa · Mundos 3–20', nl: 'Volledige versie · Werelden 3–20', fr: 'Version complète · Mondes 3–20' },
+  },
+  shopEyebrow: { tr: 'Tam sürüm · Dünya 3–20', en: 'Full version · Worlds 3–20', de: 'Vollversion · Welten 3–20', es: 'Versión completa · Mundos 3–20', nl: 'Volledige versie · Werelden 3–20', fr: 'Version complète · Mondes 3–20' },
   shopTitle: { tr: '18 dünya, 180 yeni seviye', en: '18 worlds, 180 new levels', de: '18 Welten, 180 neue Level', es: '18 mundos, 180 niveles nuevos', nl: '18 werelden, 180 nieuwe levels', fr: '18 mondes, 180 nouveaux niveaux' },
-  testBody: {
-    tr: 'Bu derlemede gerçek ödeme alınmaz. "Tam sürümü aç" ebeveyn kontrolünden sonra dünyaları doğrudan açar.',
-    en: 'This build takes no real payment. "Unlock full version" opens the worlds right after the parental gate.',
-    de: 'Diese Version nimmt keine echte Zahlung an. „Vollversion freischalten“ öffnet die Welten direkt nach der Elternkontrolle.',
-    es: 'Esta versión no cobra de verdad. «Desbloquear versión completa» abre los mundos tras el control parental.',
-    nl: 'Deze versie rekent niets echt af. "Volledige versie ontgrendelen" opent de werelden direct na het ouderlijk slot.',
-    fr: "Cette version n'encaisse aucun paiement réel. « Débloquer la version complète » ouvre les mondes après le contrôle parental.",
-  },  testTitle: { tr: 'Test sürümü', en: 'Test build', de: 'Testversion', es: 'Versión de prueba', nl: 'Testversie', fr: 'Version de test' },
-  unlockAllLevels: { tr: 'Bütün seviyeleri aç', en: 'Open all levels', de: 'Alle Level öffnen', es: 'Abrir todos los niveles', nl: 'Alle levels openen', fr: 'Ouvrir tous les niveaux' },
   unlockFull: { tr: 'Tam sürümü aç', en: 'Unlock full version', de: 'Vollversion freischalten', es: 'Desbloquear versión completa', nl: 'Volledige versie ontgrendelen', fr: 'Débloquer la version complète' },
   worldsInFull: { tr: 'Tam sürümdeki dünyalar', en: 'Worlds in the full version', de: 'Welten in der Vollversion', es: 'Mundos de la versión completa', nl: 'Werelden in de volledige versie', fr: 'Mondes de la version complète' },
   goToWorld3: { tr: "Dünya 3'e git", en: 'Go to World 3', de: 'Zu Welt 3', es: 'Ir al Mundo 3', nl: 'Naar Wereld 3', fr: 'Aller au Monde 3' },
   seeFullVersion: { tr: 'Tam sürüme göz at', en: 'See the full version', de: 'Vollversion ansehen', es: 'Ver la versión completa', nl: 'Bekijk de volledige versie', fr: 'Voir la version complète' },
-  confirmTitle: { tr: 'Flockode Tam Sürüm', en: 'Flockode Full Version', de: 'Flockode Vollversion', es: 'Flockode versión completa', nl: 'Flockode volledige versie', fr: 'Flockode version complète' },
 
   // New pieces in worlds 3–20
   condOnRed: { tr: 'Kırmızı çiçekteyim', en: 'On a red flower', de: 'Auf roter Blume', es: 'Sobre flor roja', nl: 'Op rode bloem', fr: 'Sur fleur rouge' },

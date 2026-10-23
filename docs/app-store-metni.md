@@ -79,7 +79,14 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 
 ## İnceleme notu (App Review Information → Notes)
 
-> Flockode needs no account and no network. Worlds 1–2 are free; worlds 3–20 unlock with the non-consumable in-app purchase com.yasarss.flockode.full. Buying, restoring and the App Store link to our other game (Robo Rota) are behind a parental gate that asks a multiplication question (for example 7 × 8 = 56). The game collects no data and contains no ads or analytics.
+> Flockode is a fully offline coding puzzle for kids. Everything a reviewer can see is in the binary: there is no server, no remote configuration, no feature flags, no over-the-air updates and no account.
+>
+> How to reach every feature:
+> 1. Worlds 1–2 (20 levels) are free. Open a world, then a level; the first level of every world is open, later levels open after a star on the level before.
+> 2. Worlds 3–20 unlock with the non-consumable in-app purchase com.yasarss.flockode.full: tap "Free version" on the main screen (or any locked world) → "Unlock full version". A parental gate asks a multiplication question (e.g. 7 × 8 = 56), then Apple's purchase sheet opens. "Restore purchases" works the same way.
+> 3. The only link that leaves the app is a card on the main screen that opens our other kids' game, Robo Rota, in the App Store. It is behind the same parental gate.
+>
+> The game collects no data and contains no ads or analytics.
 
 İletişim bilgileri: ad, telefon, e-posta (roborota.app@gmail.com). Giriş bilgisi gerekmiyor ("Sign-in required" kapalı).
 

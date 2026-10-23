@@ -1,16 +1,15 @@
 // One non-consumable in-app purchase unlocks worlds 3–20.
 //
-// In TestFlight and App Store builds this talks to Apple through expo-iap (StoreKit).
-// Expo Go has no StoreKit module, so there the shop runs in TEST MODE: "Buy" unlocks locally after
-// the parental gate, and the shop shows extra test tools. Those tools never appear in real builds.
+// Talks to Apple through expo-iap (StoreKit). There is no other way to unlock the full version:
+// where StoreKit is missing (Expo Go, web) buying simply fails and the paid worlds stay locked.
 
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { Platform } from 'react-native';
 
 export const FULL_VERSION_PRODUCT_ID = 'com.yasarss.flockode.full';
 
-/** True in Expo Go (and on web), where purchases are simulated. */
-export const PURCHASES_TEST_MODE =
+/** True in Expo Go and on web, where StoreKit is not available. */
+const NO_STOREKIT =
   Platform.OS !== 'ios' || Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 
 export type PurchaseResult = 'purchased' | 'cancelled' | 'pending' | 'failed';
@@ -23,7 +22,7 @@ let connected: Promise<boolean> | null = null;
 let onUnlocked: (() => void) | null = null;
 
 function load(): Iap | null {
-  if (PURCHASES_TEST_MODE) return null;
+  if (NO_STOREKIT) return null;
   if (!iap) {
     try {
       // Loaded lazily so Expo Go never touches the missing native module.
@@ -93,7 +92,6 @@ export async function getFullVersionPrice(): Promise<string | null> {
 }
 
 export async function buyFullVersion(): Promise<PurchaseResult> {
-  if (PURCHASES_TEST_MODE) return 'purchased';
   if (!(await connect())) return 'failed';
   const m = load()!;
   try {
@@ -121,7 +119,7 @@ export async function buyFullVersion(): Promise<PurchaseResult> {
 
 /** Returns true when an earlier full-version purchase was found. */
 export async function restorePurchases(): Promise<boolean> {
-  if (PURCHASES_TEST_MODE) return false;
+  if (NO_STOREKIT) return false;
   if (!(await connect())) return false;
   const m = load()!;
   try {
