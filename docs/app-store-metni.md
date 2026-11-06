@@ -88,7 +88,7 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 >
 > The game collects no data and contains no ads or analytics.
 
-İletişim bilgileri: ad, telefon, e-posta (roborota.app@gmail.com). Giriş bilgisi gerekmiyor ("Sign-in required" kapalı).
+İletişim bilgileri: ad, telefon, e-posta (app.support.yes@gmail.com). Giriş bilgisi gerekmiyor ("Sign-in required" kapalı).
 
 ## Ekran görüntüleri
 
