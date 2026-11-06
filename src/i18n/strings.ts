@@ -195,16 +195,6 @@ export const STRINGS = {
   nextLevel: { tr: 'Sonraki seviye', en: 'Next level', de: 'Nächstes Level', es: 'Siguiente nivel', nl: 'Volgende level', fr: 'Niveau suivant' },
 
   // Our other game
-  promoTitle: { tr: 'Robo Rota\'yı da dene', en: 'Try Robo Rota too', de: 'Probier auch Robo Rota', es: 'Prueba también Robo Rota', nl: 'Probeer ook Robo Rota', fr: 'Essaie aussi Robo Rota' },
-  promoBody: {
-    tr: 'Robotu komut bloklarıyla pile götür. 200 seviyelik kodlama bulmacası.',
-    en: 'Guide a robot to its battery with command blocks. A coding puzzle with 200 levels.',
-    de: 'Bring einen Roboter mit Befehlsblöcken zu seiner Batterie. Ein Programmier-Rätsel mit 200 Leveln.',
-    es: 'Lleva a un robot hasta su batería con bloques de órdenes. Un rompecabezas de programación con 200 niveles.',
-    nl: 'Breng een robot met opdrachtblokken naar zijn batterij. Een programmeerpuzzel met 200 levels.',
-    fr: "Guide un robot jusqu'à sa batterie avec des blocs de commandes. Un casse-tête de programmation en 200 niveaux.",
-  },
-  promoOpen: { tr: 'App Store\'da aç', en: 'Open in the App Store', de: 'Im App Store öffnen', es: 'Abrir en el App Store', nl: 'Openen in de App Store', fr: "Ouvrir dans l'App Store" },
 
   // Adults
   errorTitle: { tr: 'Bir şeyler ters gitti', en: 'Something went wrong', de: 'Etwas ist schiefgelaufen', es: 'Algo salió mal', nl: 'Er ging iets mis', fr: "Quelque chose s'est mal passé" },

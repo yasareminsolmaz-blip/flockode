@@ -84,12 +84,13 @@ export function ParentalGate({
   return (
     <Overlay visible={visible} onRequestClose={onCancel}>
       {/* Mounted only while open, so every opening starts with a fresh question and an empty field. */}
-      {visible && <GateBody seed={Math.floor(seed * 16)} onPass={onPass} onCancel={onCancel} />}
+      {visible && <GateBody seed={Math.floor(seed * 1000)} onPass={onPass} onCancel={onCancel} />}
     </Overlay>
   );
 }
 
-const question = (seed: number) => ({ a: 6 + (seed % 4), b: 6 + (Math.floor(seed / 4) % 4) });
+// Two two-digit numbers to add, e.g. 38 + 47: easy for adults, hard for young children.
+const question = (seed: number) => ({ a: 21 + ((seed * 7) % 29), b: 31 + ((seed * 11) % 19) });
 
 function GateBody({ seed: first, onPass, onCancel }: { seed: number; onPass: () => void; onCancel: () => void }) {
   const [seed, setSeed] = useState(first);
@@ -100,7 +101,7 @@ function GateBody({ seed: first, onPass, onCancel }: { seed: number; onPass: () 
   const q = question(seed);
 
   const submit = () => {
-    if (Number(answer) === q.a * q.b) onPass();
+    if (Number(answer) === q.a + q.b) onPass();
     else {
       setWrong(true);
       setSeed((s) => s + 1 + Math.floor(Math.random() * 14));
@@ -115,7 +116,7 @@ function GateBody({ seed: first, onPass, onCancel }: { seed: number; onPass: () 
       <Text style={styles.modalTitle}>{t('parentalGate')}</Text>
       <Text style={styles.modalText}>{t('parentalBody')}</Text>
       <Text style={styles.question}>
-        {q.a} × {q.b} = ?
+        {q.a} + {q.b} = ?
       </Text>
       <TextInput
         ref={input}
