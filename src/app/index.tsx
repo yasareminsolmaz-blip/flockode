@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { Icon, SheepArt } from '../components/Icons';
+import { SheepArt } from '../components/Icons';
 import { LanguageButton } from '../components/LanguagePicker';
-import { PromoCard } from '../components/PromoCard';
 import { Screen } from '../components/Screen';
 import { SoundToggle } from '../components/SoundToggle';
-import { Stars, ui } from '../components/ui';
+import { Trail, type TrailStop } from '../components/Trail';
+import { Stars } from '../components/ui';
 import { LEVELS, worldStars, WORLDS } from '../game/data';
 import { useI18n } from '../i18n';
 import { isPlayableWorld, useProgress } from '../store/Progress';
@@ -14,7 +14,7 @@ import { colors } from '../theme';
 
 export default function Home() {
   const { stars, owned } = useProgress();
-  const { t, worldName, worldIntro } = useI18n();
+  const { t, worldName } = useI18n();
   const total = stars.reduce((a, b) => a + (b || 0), 0);
 
   return (
@@ -36,7 +36,7 @@ export default function Home() {
             <Text style={styles.tagline}>{t('tagline')}</Text>
           </View>
         </View>
-        <View style={styles.headerRight}>
+        <View style={styles.toolbar}>
           <LanguageButton />
           <SoundToggle />
           <View style={styles.total}>
@@ -50,86 +50,80 @@ export default function Home() {
         </View>
       </View>
 
-      <Text style={ui.eyebrow}>{t('worlds')}</Text>
-      <View style={styles.grid}>
-        {WORLDS.map((w) => {
-          const playable = isPlayableWorld(w.free, owned);
-          const s = worldStars(stars, w);
-          const max = (w.b - w.a) * 3;
-          const cleared = (stars[w.b - 1] ?? 0) > 0;
-          return (
-            <Pressable
-              key={w.idx}
-              accessibilityRole="button"
-              accessibilityLabel={`${t('worldN', { n: w.idx + 1 })}, ${worldName(w.idx)}${playable ? '' : `, ${t('inFullVersion')}`}`}
-              onPress={() => (playable ? router.push(`/world/${w.idx}`) : router.push('/shop'))}
-              style={({ pressed }) => [styles.world, !playable && styles.locked, cleared && styles.cleared, pressed && { transform: [{ translateY: 2 }] }]}
-            >
-              <View style={styles.worldTop}>
-                <Text style={styles.worldNum}>{w.idx + 1}</Text>
-                {!playable && (
-                  <View style={styles.lockRow}>
-                    <Icon name="lock" size={18} color={colors.mute} stroke={2.2} />
-                  </View>
-                )}
-              </View>
-              <Text style={styles.worldName}>{worldName(w.idx)}</Text>
-              <Text style={ui.fine} numberOfLines={3}>
-                {worldIntro(w.idx)}
-              </Text>
-              {playable ? (
-                <View style={styles.worldFoot}>
-                  <Stars n={s >= max ? 3 : s >= max / 2 ? 2 : s > 0 ? 1 : 0} size={16} />
-                  <Text style={styles.worldStars}>
-                    {s} / {max}
-                  </Text>
-                </View>
+      <View style={styles.meadow}>
+        <Text style={styles.sign}>{t('worlds')}</Text>
+        <Trail
+          stops={WORLDS.map((w): TrailStop => {
+            const playable = isPlayableWorld(w.free, owned);
+            const s = worldStars(stars, w);
+            const max = (w.b - w.a) * 3;
+            const cleared = (stars[w.b - 1] ?? 0) > 0;
+            return {
+              key: String(w.idx),
+              badge: String(w.idx + 1),
+              label: worldName(w.idx),
+              state: !playable ? 'locked' : cleared ? 'done' : 'open',
+              big: w.idx === WORLDS.length - 1,
+              a11y: `${t('worldN', { n: w.idx + 1 })}, ${worldName(w.idx)}${playable ? '' : `, ${t('inFullVersion')}`}`,
+              onPress: () => (playable ? router.push(`/world/${w.idx}`) : router.push('/shop')),
+              foot: playable ? (
+                <Stars n={s >= max ? 3 : s >= max / 2 ? 2 : s > 0 ? 1 : 0} size={13} />
               ) : (
                 <Text style={styles.lockText}>{t('inFullVersion')}</Text>
-              )}
-            </Pressable>
-          );
-        })}
+              ),
+            };
+          })}
+        />
       </View>
-
-      <PromoCard />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  header: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 12 },
+  header: { alignItems: 'center', gap: 14, paddingTop: 8 },
   brand: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   flock: { flexDirection: 'row', alignItems: 'flex-start' },
   title: { fontSize: 40, fontWeight: '900', color: colors.wool, letterSpacing: 0.5 },
   tagline: { fontSize: 15, fontWeight: '700', color: colors.mute },
-  headerRight: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
+  toolbar: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    padding: 6,
+    borderRadius: 30,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
   total: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, backgroundColor: colors.panel, borderWidth: 1, borderColor: colors.line },
   totalText: { color: colors.star, fontWeight: '900', fontSize: 15, fontVariant: ['tabular-nums'] },
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 14 },
-  world: {
-    flexGrow: 1,
-    flexBasis: 240,
-    minHeight: 160,
-    padding: 16,
-    gap: 6,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: colors.line,
-    backgroundColor: colors.panel,
-    boxShadow: '0px 10px 24px rgba(0,0,0,0.28)',
-    justifyContent: 'space-between',
-  },
-  cleared: { borderColor: colors.good },
-  locked: { borderStyle: 'dashed', backgroundColor: 'transparent', boxShadow: 'none' },
-  lockText: { fontSize: 13, fontWeight: '800', color: colors.mute },
   badge: { paddingHorizontal: 12, paddingVertical: 8, borderRadius: 999, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.panel },
   badgeOwned: { backgroundColor: colors.lantern, borderColor: colors.lantern },
   badgeText: { fontWeight: '800', fontSize: 14, color: colors.ink },
-  worldTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  lockRow: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  worldNum: { fontSize: 32, fontWeight: '900', color: colors.lantern, fontVariant: ['tabular-nums'] },
-  worldName: { fontSize: 22, fontWeight: '900', color: colors.wool },
-  worldFoot: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 6 },
-  worldStars: { fontSize: 13, fontWeight: '800', color: colors.mute, fontVariant: ['tabular-nums'] },
+  meadow: {
+    borderRadius: 36,
+    backgroundColor: colors.meadow,
+    borderTopWidth: 6,
+    borderColor: colors.tuft,
+    paddingHorizontal: 10,
+    paddingTop: 18,
+    paddingBottom: 8,
+    gap: 10,
+  },
+  sign: {
+    alignSelf: 'center',
+    paddingHorizontal: 18,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: colors.wood,
+    borderBottomWidth: 4,
+    borderColor: colors.woodDark,
+    color: '#2B1A0A',
+    fontWeight: '900',
+    fontSize: 15,
+    letterSpacing: 1.2,
+    textTransform: 'uppercase',
+    overflow: 'hidden',
+  },
+  lockText: { fontSize: 12, fontWeight: '800', color: colors.mute, textAlign: 'center' },
 });

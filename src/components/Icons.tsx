@@ -92,22 +92,6 @@ export const SheepArt = memo(function SheepArt({ size, tint = colors.wool }: { s
   );
 });
 
-/** Small robot used on the Robo Rota card. */
-export function RobotMini({ size }: { size: number }) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 48 48">
-      <Rect x={22.5} y={3} width={3} height={7} rx={1.5} fill={colors.ink} />
-      <Circle cx={24} cy={4} r={3} fill={colors.lantern} />
-      <Rect x={8} y={10} width={32} height={26} rx={8} fill="#E8553D" />
-      <Rect x={13} y={16} width={22} height={12} rx={6} fill="#1D2B3C" />
-      <Circle cx={19} cy={22} r={3} fill="#7FE0F0" />
-      <Circle cx={29} cy={22} r={3} fill="#7FE0F0" />
-      <Rect x={14} y={37} width={6} height={7} rx={2} fill="#A93623" />
-      <Rect x={28} y={37} width={6} height={7} rx={2} fill="#A93623" />
-    </Svg>
-  );
-}
-
 /** Little picture for each condition: what the sheep looks at, from above. */
 export const CondArt = memo(function CondArt({ c, size = 26 }: { c: Cond; size?: number }) {
   if (c === 'onYellow' || c === 'onBlue' || c === 'onRed')

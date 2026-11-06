@@ -42,7 +42,7 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 >
 > Worlds 1–2 (20 levels) are free. A single one-time purchase unlocks worlds 3–20.
 >
-> Safe for kids: no ads, no accounts, no data collection and no internet needed. Purchases and the App Store link are behind a parental gate.
+> Safe for kids: no ads, no accounts, no data collection and no internet needed. Purchases are behind a parental gate.
 
 **Keywords** (100 karakter): `coding,kids,programming,puzzle,logic,sheep,STEM,algorithm,learn to code,brain,school`
 
@@ -71,7 +71,7 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 >
 > Dünya 1–2 (20 seviye) ücretsiz. Tek seferlik bir satın alma Dünya 3–20'yi açar.
 >
-> Çocuklar için güvenli: reklam yok, hesap yok, veri toplanmaz, internet gerekmez. Satın alma ve App Store bağlantısı ebeveyn kontrolünün arkasında.
+> Çocuklar için güvenli: reklam yok, hesap yok, veri toplanmaz, internet gerekmez. Satın alma ebeveyn kontrolünün arkasında.
 
 **Anahtar kelimeler**: `kodlama,çocuk,programlama,bulmaca,mantık,kuzu,algoritma,eğitim,zeka,okul,STEM,oyun`
 
@@ -83,8 +83,8 @@ App Store Connect → Flockode → **1.0 Sürümü Hazırlanıyor** sayfasındak
 >
 > How to reach every feature:
 > 1. Worlds 1–2 (20 levels) are free. Open a world, then a level; the first level of every world is open, later levels open after a star on the level before.
-> 2. Worlds 3–20 unlock with the non-consumable in-app purchase com.yasarss.flockode.full: tap "Free version" on the main screen (or any locked world) → "Unlock full version". A parental gate asks a multiplication question (e.g. 7 × 8 = 56), then Apple's purchase sheet opens. "Restore purchases" works the same way.
-> 3. The only link that leaves the app is a card on the main screen that opens our other kids' game, Robo Rota, in the App Store. It is behind the same parental gate.
+> 2. Worlds 3–20 unlock with the non-consumable in-app purchase com.yasarss.flockode.full: tap "Free version" on the main screen (or any locked world) → "Unlock full version". A parental gate asks an addition question (e.g. 38 + 47 = 85), then Apple's purchase sheet opens. "Restore purchases" works the same way.
+> 3. There are no links that leave the app.
 >
 > The game collects no data and contains no ads or analytics.
 
@@ -125,7 +125,7 @@ Die Schafe starten an verschiedenen Stellen und schauen in verschiedene Richtung
 
 Welt 1–2 (20 Level) sind kostenlos. Ein einmaliger Kauf schaltet Welt 3–20 frei.
 
-Sicher für Kinder: keine Werbung, keine Konten, keine Datenerhebung und kein Internet nötig. Käufe und der Link zum App Store sind durch eine Elternkontrolle geschützt.
+Sicher für Kinder: keine Werbung, keine Konten, keine Datenerhebung und kein Internet nötig. Käufe sind durch eine Elternkontrolle geschützt.
 
 **Schlüsselwörter**: `programmieren,kinder,coding,rätsel,logik,schafe,MINT,algorithmus,lernen,denken,schule`
 
@@ -156,7 +156,7 @@ Les moutons partent d’endroits différents et regardent dans des directions di
 
 Les mondes 1–2 (20 niveaux) sont gratuits. Un achat unique débloque les mondes 3–20.
 
-Sûr pour les enfants : pas de publicité, pas de compte, aucune collecte de données et pas besoin d’internet. Les achats et le lien vers l’App Store sont protégés par un contrôle parental.
+Sûr pour les enfants : pas de publicité, pas de compte, aucune collecte de données et pas besoin d’internet. Les achats sont protégés par un contrôle parental.
 
 **Mots-clés**: `programmation,enfants,coding,casse-tête,logique,moutons,algorithme,apprendre,école,jeu`
 
@@ -187,7 +187,7 @@ Las ovejas empiezan en lugares distintos y miran en direcciones distintas, así 
 
 Los mundos 1–2 (20 niveles) son gratis. Una única compra desbloquea los mundos 3–20.
 
-Seguro para niños: sin anuncios, sin cuentas, sin recogida de datos y sin necesidad de internet. Las compras y el enlace al App Store están protegidos por un control parental.
+Seguro para niños: sin anuncios, sin cuentas, sin recogida de datos y sin necesidad de internet. Las compras están protegidas por un control parental.
 
 **Palabras clave**: `programación,niños,coding,rompecabezas,lógica,ovejas,algoritmo,aprender,escuela,juego`
 
@@ -218,7 +218,7 @@ De schapen beginnen op verschillende plekken en kijken verschillende kanten op, 
 
 Wereld 1–2 (20 levels) zijn gratis. Eén eenmalige aankoop opent wereld 3–20.
 
-Veilig voor kinderen: geen reclame, geen accounts, geen gegevensverzameling en geen internet nodig. Aankopen en de link naar de App Store zitten achter een ouderlijk slot.
+Veilig voor kinderen: geen reclame, geen accounts, geen gegevensverzameling en geen internet nodig. Aankopen zitten achter een ouderlijk slot.
 
 **Trefwoorden**: `programmeren,kinderen,coding,puzzel,logica,schapen,algoritme,leren,school,denken,spel`
 

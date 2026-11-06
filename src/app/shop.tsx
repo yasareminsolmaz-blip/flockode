@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { CondArt } from '../components/Icons';
+import { CondArt, SheepArt } from '../components/Icons';
 import { BackButton, Screen } from '../components/Screen';
 import { Button, Card, ParentalGate, ui } from '../components/ui';
 import { WORLDS } from '../game/data';
@@ -68,7 +68,14 @@ export default function Shop() {
   return (
     <Screen>
       <BackButton label={t('close')} onPress={() => (router.canGoBack() ? router.back() : router.replace('/'))} />
-      <Card>
+      <Card style={styles.hero}>
+        <View style={styles.flock}>
+          {[0, 1, 2, 3].map((k) => (
+            <View key={k} style={{ marginTop: k % 2 ? 14 : 0, transform: [{ rotate: `${k % 2 ? 12 : -14}deg` }] }}>
+              <SheepArt size={40} />
+            </View>
+          ))}
+        </View>
         <Text style={ui.eyebrow}>{t('shopEyebrow')}</Text>
         <Text style={ui.title}>{t('shopTitle')}</Text>
         <Text style={styles.body}>{t('shopBody')}</Text>
@@ -103,19 +110,16 @@ export default function Shop() {
         <Text style={ui.fine}>{t('gateNote')}</Text>
       </Card>
 
-      <Card>
-        <Text style={ui.eyebrow}>{t('worldsInFull')}</Text>
-        <View style={styles.list}>
+      <View style={styles.fence}>
+        <Text style={styles.fenceTitle}>{t('worldsInFull')}</Text>
+        <View style={styles.tokens}>
           {paid.map((w) => (
-            <View key={w.idx} style={[styles.item, owned && styles.itemOwned]}>
-              <Text style={styles.itemNum}>{w.idx + 1}</Text>
-              <Text style={styles.itemName} numberOfLines={1}>
-                {worldName(w.idx)}
-              </Text>
+            <View key={w.idx} accessible accessibilityLabel={`${w.idx + 1}, ${worldName(w.idx)}`} style={[styles.token, owned && styles.tokenOwned]}>
+              <Text style={[styles.tokenNum, owned && { color: '#24331F' }]}>{w.idx + 1}</Text>
             </View>
           ))}
         </View>
-      </Card>
+      </View>
 
 
       <ParentalGate visible={gate !== null} seed={gateSeed} onPass={passed} onCancel={() => setGate(null)} />
@@ -132,9 +136,22 @@ const styles = StyleSheet.create({
   owned: { backgroundColor: '#1F3B33', borderRadius: 12, padding: 12, borderWidth: 1, borderColor: colors.good },
   ownedText: { color: colors.good, fontWeight: '800', fontSize: 15, lineHeight: 21 },
   note: { color: colors.lantern, fontWeight: '800', fontSize: 15 },
-  list: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  item: { flexDirection: 'row', alignItems: 'baseline', gap: 8, borderWidth: 1, borderStyle: 'dashed', borderColor: colors.line, borderRadius: 10, paddingHorizontal: 10, paddingVertical: 8, flexGrow: 1, flexBasis: 170 },
-  itemOwned: { borderStyle: 'solid', borderColor: colors.good },
-  itemNum: { fontWeight: '900', color: colors.lantern, fontSize: 15, fontVariant: ['tabular-nums'] },
-  itemName: { fontWeight: '700', color: colors.ink, fontSize: 14, flexShrink: 1 },
+  hero: { borderRadius: 30, borderTopWidth: 6, borderTopColor: colors.lantern, alignItems: 'stretch' },
+  flock: { flexDirection: 'row', alignSelf: 'center', gap: 6, marginBottom: 4 },
+  fence: { gap: 10, padding: 16, borderRadius: 30, backgroundColor: colors.meadow, borderTopWidth: 6, borderColor: colors.wood },
+  fenceTitle: { ...ui.eyebrow, color: colors.wool, textAlign: 'center' },
+  tokens: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 10 },
+  token: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 3,
+    borderStyle: 'dashed',
+    borderColor: colors.tuft,
+    backgroundColor: colors.soil,
+  },
+  tokenOwned: { borderStyle: 'solid', borderColor: colors.wool, backgroundColor: colors.good },
+  tokenNum: { fontWeight: '900', fontSize: 17, color: colors.wool, fontVariant: ['tabular-nums'] },
 });
